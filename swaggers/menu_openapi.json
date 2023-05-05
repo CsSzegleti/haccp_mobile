@@ -1,0 +1,582 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "HACCP Menu item API",
+    "description" : "Menu item api graphical user interface.",
+    "contact" : {
+      "name" : "Csongor Szegleti",
+      "url" : "https://www.4dsoft.hu",
+      "email" : "szegleti_csongor@4dsoft.hu"
+    },
+    "license" : {
+      "name" : "4D Soft",
+      "url" : "https://www.4dsoft.hu"
+    },
+    "version" : "v1"
+  },
+  "tags" : [ {
+    "name" : "Info",
+    "description" : "Menu item api graphical user interface."
+  } ],
+  "paths" : {
+    "/api/v1/menu/allergen" : {
+      "get" : {
+        "tags" : [ "Allergen Resource" ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StoringCondition"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Allergen Resource" ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Allergen"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Modification successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "No such item",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Allergen Resource" ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Allergen"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Adding successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Item already exists",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/menu/allergen/{id}" : {
+      "get" : {
+        "tags" : [ "Allergen Resource" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StoringCondition"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Entity not found",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Allergen Resource" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Delete successful",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/menu/category" : {
+      "get" : {
+        "tags" : [ "Category Resource" ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Category Resource" ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Category"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Modification successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "No such item",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Category Resource" ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Category"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Adding successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Item already exists",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/menu/category/{id}" : {
+      "get" : {
+        "tags" : [ "Category Resource" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Category"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Entity not found",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Category Resource" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Delete successful",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/menu/category/{id}/items" : {
+      "get" : {
+        "tags" : [ "Category Resource" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MenuItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/menu/item" : {
+      "get" : {
+        "tags" : [ "Menu Item Resource" ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MenuItem"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Menu Item Resource" ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/MenuItemDto"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Modification successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "No such item",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Menu Item Resource" ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/MenuItemDto"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Adding successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Item already exists",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/menu/item/{id}" : {
+      "get" : {
+        "tags" : [ "Menu Item Resource" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MenuItem"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Entity not found",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Menu Item Resource" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Delete successful",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Allergen" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "longName" : {
+            "type" : "string"
+          },
+          "shortName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Category" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "menuCardPos" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        }
+      },
+      "MenuItem" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "price" : {
+            "format" : "double",
+            "type" : "number"
+          },
+          "category" : {
+            "$ref" : "#/components/schemas/Category"
+          },
+          "currency" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "imgUrls" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "allergens" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Allergen"
+            }
+          },
+          "isPreparable" : {
+            "type" : "boolean"
+          },
+          "storingCondition" : {
+            "$ref" : "#/components/schemas/StoringCondition"
+          }
+        }
+      },
+      "MenuItemDto" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "price" : {
+            "format" : "double",
+            "type" : "number"
+          },
+          "currency" : {
+            "type" : "string"
+          },
+          "categoryId" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "imgUrls" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "allergenIds" : {
+            "type" : "array",
+            "items" : {
+              "format" : "int64",
+              "type" : "integer"
+            }
+          },
+          "isPreparable" : {
+            "type" : "boolean"
+          },
+          "storingCondition" : {
+            "$ref" : "#/components/schemas/StoringCondition"
+          }
+        }
+      },
+      "StoringCondition" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "temperature" : {
+            "format" : "float",
+            "type" : "number"
+          },
+          "humidity" : {
+            "format" : "float",
+            "type" : "number"
+          },
+          "maxStoringHours" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "SecurityScheme" : {
+        "type" : "openIdConnect",
+        "description" : "Authentication"
+      },
+      "openIdConnect" : {
+        "type" : "openIdConnect",
+        "description" : "Keycloak HACCP",
+        "openIdConnectUrl" : "http//localhost:6080/auth/realms/base/.well-known/openid-configuration"
+      }
+    }
+  }
+}
