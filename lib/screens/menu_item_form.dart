@@ -20,11 +20,13 @@ class _MenuItemFormState extends State<MenuItemForm> {
 
   late MenuItem _menuItem;
 
+  Future<Object?>? _futureResponse;
+
   Category? _selectedCategory;
   List<Allergen> _selectedAllergens = [];
   List<Category> _categories = [];
   List<Allergen> _allergens = [];
-  List<String> _currencies = ["EUR", "USD", "GBP", "HUF"];
+  final List<String> _currencies = ["EUR", "USD", "GBP", "HUF"];
 
   @override
   void initState() {
@@ -55,7 +57,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
         await AllergenResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
             .listAllergens();
     setState(() {
-      _allergens = items == null ? [] : items;
+      _allergens = items ?? [];
     });
   }
 
@@ -64,8 +66,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
         await CategoryResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
             .listCategories();
     setState(() {
-      _categories = items == null ? [] : items;
-      print(_categories);
+      _categories = items ?? [];
     });
   }
 
@@ -265,8 +266,14 @@ class _MenuItemFormState extends State<MenuItemForm> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       print(_menuItem);
-      await MenuItemResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
-          .addMenuItem(menuItem: _menuItem);
+      if (_menuItem.id != null) {
+        await MenuItemResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
+            .updateMenuItem(_menuItem.id!, menuItem: _menuItem);
+      } else {
+        await MenuItemResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
+            .addMenuItem(menuItem: _menuItem);
+      }
+
       Navigator.pop(context);
     }
   }

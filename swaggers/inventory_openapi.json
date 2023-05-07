@@ -1,0 +1,1003 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "haccp-inventory API",
+    "version" : "1.0.0-SNAPSHOT"
+  },
+  "tags" : [ {
+    "name" : "Cleaning",
+    "description" : "Add and read cleanings."
+  }, {
+    "name" : "ControlPoint",
+    "description" : "Managing critical control points."
+  }, {
+    "name" : "ControlProperty",
+    "description" : "Adding and reading properties for critical control point."
+  }, {
+    "name" : "FoodStorage",
+    "description" : "Managing storages"
+  } ],
+  "paths" : {
+    "/api/v1/storage" : {
+      "get" : {
+        "tags" : [ "FoodStorage" ],
+        "summary" : "List all storages.",
+        "operationId" : "listAllFoodStorages",
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FoodStorage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "FoodStorage" ],
+        "summary" : "Create new storage.",
+        "operationId" : "addNewFoodStorage",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/FoodStorage"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Adding successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Item already exists",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/storage/{id}" : {
+      "get" : {
+        "tags" : [ "FoodStorage" ],
+        "summary" : "Find storage by ID.",
+        "operationId" : "findFoodStorageById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FoodStorage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Entity not found",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "FoodStorage" ],
+        "summary" : "Update existing food storage.",
+        "operationId" : "updateFoodStorage",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/FoodStorage"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Modification successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "No such item",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "FoodStorage" ],
+        "summary" : "Delete food storage by ID.",
+        "operationId" : "deleteFoodStorageById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Delete successful",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/storage/{id}/add_item" : {
+      "post" : {
+        "tags" : [ "FoodStorage" ],
+        "summary" : "Add menu item to storage using its ID. Returns",
+        "operationId" : "addMenuItemToFoodStorage",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InventoryItemToMoveDto"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Adding item successful",
+            "content" : {
+              "text/plain" : { }
+            }
+          },
+          "404" : {
+            "description" : "No such storage",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/storage/{id}/remove_item" : {
+      "post" : {
+        "tags" : [ "FoodStorage" ],
+        "summary" : "Remove menu item from storage.",
+        "operationId" : "removeMenuItemFromFoodStorage",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InventoryItemToMoveDto"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Remove item successful",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "404" : {
+            "description" : "No such storage",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/storage/{storageId}/ccp" : {
+      "get" : {
+        "tags" : [ "ControlPoint" ],
+        "summary" : "List all critical control points.",
+        "operationId" : "listAllControlPoints",
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ControlPoint"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "ControlPoint" ],
+        "summary" : "Create new storage.",
+        "operationId" : "addControlPoint",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ControlPoint"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Adding successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Item already exists",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "storageId",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    },
+    "/api/v1/storage/{storageId}/ccp/{ccpId}/property" : {
+      "get" : {
+        "tags" : [ "ControlProperty" ],
+        "summary" : "List all properties for the critical control point.",
+        "operationId" : "listAllControlProperty",
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ControlProperty"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "ControlProperty" ],
+        "summary" : "Administrate new property.",
+        "operationId" : "addNewControlProperty",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ControlProperty"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Adding successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Item already exists or no such ccp",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "ccpId",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      }, {
+        "name" : "storageId",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    },
+    "/api/v1/storage/{storageId}/ccp/{ccpId}/property/last" : {
+      "get" : {
+        "tags" : [ "ControlProperty" ],
+        "summary" : "Find latest property for the critical control point.",
+        "operationId" : "getLastControlProperty",
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ControlProperty"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Entity not found",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "ccpId",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      }, {
+        "name" : "storageId",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    },
+    "/api/v1/storage/{storageId}/ccp/{ccpId}/property/{id}" : {
+      "get" : {
+        "tags" : [ "ControlProperty" ],
+        "summary" : "Find  by ID.",
+        "operationId" : "findControlPropertyById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ControlProperty"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Entity not found",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "ccpId",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      }, {
+        "name" : "storageId",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    },
+    "/api/v1/storage/{storageId}/ccp/{id}" : {
+      "get" : {
+        "tags" : [ "ControlPoint" ],
+        "summary" : "Find critical control point by ID.",
+        "operationId" : "FindControlPointById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ControlPoint"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Entity not found",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "ControlPoint" ],
+        "summary" : "Update existing critical control point.",
+        "operationId" : "modifyControlPoint",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ControlPoint"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Modification successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "No such item",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "storageId",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    },
+    "/api/v1/storage/{storageId}/cleaning" : {
+      "get" : {
+        "tags" : [ "Cleaning" ],
+        "summary" : "List all cleanings for the specific storage.",
+        "operationId" : "listAllCleaning",
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Cleaning"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Cleaning" ],
+        "summary" : "Administrate new cleaning.",
+        "operationId" : "addCleaning",
+        "responses" : {
+          "201" : {
+            "description" : "Adding successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Item already exists",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "storageId",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    },
+    "/api/v1/storage/{storageId}/cleaning/last" : {
+      "get" : {
+        "tags" : [ "Cleaning" ],
+        "summary" : "Get last cleaning for the specific storage",
+        "operationId" : "getLastCleaning",
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Cleaning"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Entity not found",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "storageId",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    },
+    "/api/v1/storage/{storageId}/cleaning/{id}" : {
+      "get" : {
+        "tags" : [ "Cleaning" ],
+        "summary" : "Find cleaning by ID.",
+        "operationId" : "getCleaningById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful query",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Cleaning"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Entity not found",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "401" : {
+            "description" : "Token expired",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "storageId",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Cleaning" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "cleanedBy" : {
+            "type" : "string"
+          },
+          "createdDate" : {
+            "format" : "date-time",
+            "type" : "string"
+          }
+        }
+      },
+      "ControlPoint" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "properties" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ControlProperty"
+            }
+          },
+          "limitType" : {
+            "$ref" : "#/components/schemas/LimitType"
+          },
+          "threshold" : {
+            "format" : "double",
+            "type" : "number"
+          },
+          "createdDate" : {
+            "format" : "date-time",
+            "type" : "string"
+          }
+        }
+      },
+      "ControlProperty" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "value" : {
+            "format" : "double",
+            "type" : "number"
+          },
+          "addedBy" : {
+            "type" : "string"
+          },
+          "createdDate" : {
+            "format" : "date-time",
+            "type" : "string"
+          }
+        }
+      },
+      "FoodStorage" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "createdDate" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/InventoryItem"
+            }
+          }
+        }
+      },
+      "InventoryItem" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "menuItemId" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "createdDate" : {
+            "format" : "date-time",
+            "type" : "string"
+          }
+        }
+      },
+      "InventoryItemToMoveDto" : {
+        "type" : "object",
+        "properties" : {
+          "menuItemId" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "quantity" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        }
+      },
+      "LimitType" : {
+        "enum" : [ "MAX", "MIN" ],
+        "type" : "string"
+      }
+    }
+  }
+}
