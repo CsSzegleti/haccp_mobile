@@ -17,28 +17,28 @@ void main() {
   // final instance = AllergenResourceApi();
 
   group('tests for AllergenResourceApi', () {
-    //Future<StoringCondition> apiV1MenuAllergenGet() async
-    test('test apiV1MenuAllergenGet', () async {
+    //Future<Object> addAllergen({ Allergen allergen }) async
+    test('test addAllergen', () async {
       // TODO
     });
 
-    //Future apiV1MenuAllergenIdDelete(int id) async
-    test('test apiV1MenuAllergenIdDelete', () async {
+    //Future deleteAllergenById(int id) async
+    test('test deleteAllergenById', () async {
       // TODO
     });
 
-    //Future<StoringCondition> apiV1MenuAllergenIdGet(int id) async
-    test('test apiV1MenuAllergenIdGet', () async {
+    //Future<Allergen> getAllergenById(int id) async
+    test('test getAllergenById', () async {
       // TODO
     });
 
-    //Future<Object> apiV1MenuAllergenPost({ Allergen allergen }) async
-    test('test apiV1MenuAllergenPost', () async {
+    //Future<List<Allergen>> listAllergens() async
+    test('test listAllergens', () async {
       // TODO
     });
 
-    //Future<Object> apiV1MenuAllergenPut({ Allergen allergen }) async
-    test('test apiV1MenuAllergenPut', () async {
+    //Future<Object> modifyAllergen(int id, { Allergen allergen }) async
+    test('test modifyAllergen', () async {
       // TODO
     });
 

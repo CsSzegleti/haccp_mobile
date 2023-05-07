@@ -7,7 +7,7 @@ import 'package:multiselect/multiselect.dart';
 import '../widgets/number_scroller.dart';
 
 class MenuItemForm extends StatefulWidget {
-  final MenuItemDto? menuItem;
+  final MenuItem? menuItem;
 
   const MenuItemForm({Key? key, this.menuItem}) : super(key: key);
 
@@ -18,7 +18,7 @@ class MenuItemForm extends StatefulWidget {
 class _MenuItemFormState extends State<MenuItemForm> {
   final _formKey = GlobalKey<FormState>();
 
-  final MenuItemDto _menuItemDto = MenuItemDto();
+  late MenuItem _menuItem;
 
   Category? _selectedCategory;
   List<Allergen> _selectedAllergens = [];
@@ -31,15 +31,29 @@ class _MenuItemFormState extends State<MenuItemForm> {
     super.initState();
     _loadCategories();
     _loadAllergens();
-    if (_menuItemDto != null && _menuItemDto.storingCondition == null) {
-      _menuItemDto.storingCondition = StoringCondition();
+
+    if (widget.menuItem != null) {
+      _menuItem = widget.menuItem!;
+      _selectedCategory = _menuItem.category;
+      _selectedAllergens = _menuItem.allergens;
+    } else {
+      _menuItem = MenuItem(
+        name: "",
+        description: "",
+        price: 0,
+        currency: "HUF",
+        category: null,
+        allergens: [],
+        storingCondition:
+            StoringCondition(temperature: 0, humidity: 0, maxStoringHours: 0),
+      );
     }
   }
 
   Future<void> _loadAllergens() async {
     final items =
         await AllergenResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
-            .apiV1MenuAllergenGet();
+            .listAllergens();
     setState(() {
       _allergens = items == null ? [] : items;
     });
@@ -48,7 +62,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
   Future<void> _loadCategories() async {
     final items =
         await CategoryResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
-            .apiV1MenuCategoryGet();
+            .listCategories();
     setState(() {
       _categories = items == null ? [] : items;
       print(_categories);
@@ -68,10 +82,10 @@ class _MenuItemFormState extends State<MenuItemForm> {
           padding: const EdgeInsets.all(16.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            Text("Base data"),
+            const Text("Base data"),
             const SizedBox(height: 16),
             TextFormField(
-              initialValue: _menuItemDto.name,
+              initialValue: _menuItem.name,
               decoration: const InputDecoration(
                 labelText: "Name",
                 border: OutlineInputBorder(),
@@ -83,12 +97,12 @@ class _MenuItemFormState extends State<MenuItemForm> {
                 return null;
               },
               onSaved: (newValue) {
-                _menuItemDto.name = newValue;
+                _menuItem.name = newValue!;
               },
             ),
             const SizedBox(height: 16),
             TextFormField(
-              initialValue: _menuItemDto.description,
+              initialValue: _menuItem.description,
               decoration: const InputDecoration(
                 labelText: 'Description',
                 border: OutlineInputBorder(),
@@ -100,7 +114,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
                 return null;
               },
               onSaved: (value) {
-                _menuItemDto.description = value;
+                _menuItem.description = value!;
               },
             ),
             const SizedBox(height: 16),
@@ -119,7 +133,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
                 onChanged: (value) {
                   setState(() {
                     _selectedCategory = value;
-                    _menuItemDto.categoryId = value!.id;
+                    _menuItem.category = value;
                   });
                 }),
             const SizedBox(height: 16),
@@ -134,16 +148,13 @@ class _MenuItemFormState extends State<MenuItemForm> {
               onChanged: (List<Allergen> allergens) {
                 setState(() {
                   _selectedAllergens = allergens;
-                  _menuItemDto.allergenIds =
-                      allergens.map((e) => e.id).toList().cast<int>();
+                  _menuItem.allergens = allergens;
                 });
               },
             ),
             const SizedBox(height: 16),
             TextFormField(
-              initialValue: _menuItemDto.price == null
-                  ? ""
-                  : _menuItemDto.price.toString(),
+              initialValue: _menuItem.price.toString(),
               decoration: const InputDecoration(
                 labelText: "Price",
                 border: OutlineInputBorder(),
@@ -155,6 +166,9 @@ class _MenuItemFormState extends State<MenuItemForm> {
                 }
                 return null;
               },
+              onSaved: (value) {
+                _menuItem.price = double.parse(value!);
+              },
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
@@ -162,7 +176,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
                   labelText: 'Currency',
                   border: OutlineInputBorder(),
                 ),
-                value: _menuItemDto.currency,
+                value: _menuItem.currency,
                 items: _currencies.map((item) {
                   return DropdownMenuItem<String>(
                     value: item,
@@ -171,7 +185,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
                 }).toList(),
                 onChanged: (value) {
                   setState(() {
-                    _menuItemDto.currency = value;
+                    _menuItem.currency = value!;
                   });
                 }),
             const SizedBox(height: 16),
@@ -183,16 +197,15 @@ class _MenuItemFormState extends State<MenuItemForm> {
                 border: OutlineInputBorder(),
               ),
               child: Slider(
-                value: _menuItemDto.storingCondition?.temperature ?? 0,
+                value: _menuItem.storingCondition.temperature,
                 min: -40,
                 max: 40,
                 divisions: 80,
-                label: _menuItemDto.storingCondition!.temperature
-                    ?.round()
-                    .toString(),
+                label:
+                    _menuItem.storingCondition.temperature.round().toString(),
                 onChanged: (value) {
                   setState(() {
-                    _menuItemDto.storingCondition!.temperature = value;
+                    _menuItem.storingCondition.temperature = value;
                   });
                 },
               ),
@@ -204,15 +217,14 @@ class _MenuItemFormState extends State<MenuItemForm> {
                 border: OutlineInputBorder(),
               ),
               child: Slider(
-                value: _menuItemDto.storingCondition?.humidity ?? 0,
+                value: _menuItem.storingCondition.humidity ?? 0,
                 min: 0,
                 max: 100,
                 divisions: 20,
-                label:
-                    _menuItemDto.storingCondition!.humidity?.round().toString(),
+                label: _menuItem.storingCondition.humidity?.round().toString(),
                 onChanged: (value) {
                   setState(() {
-                    _menuItemDto.storingCondition!.humidity = value;
+                    _menuItem.storingCondition.humidity = value;
                   });
                 },
               ),
@@ -224,19 +236,16 @@ class _MenuItemFormState extends State<MenuItemForm> {
                 border: OutlineInputBorder(),
               ),
               child: Slider(
-                value: _menuItemDto.storingCondition?.maxStoringHours
-                        ?.toDouble() ??
-                    0,
+                value: _menuItem.storingCondition.maxStoringHours.toDouble(),
                 min: 0,
                 max: 100,
                 divisions: 20,
-                label: _menuItemDto.storingCondition!.maxStoringHours
-                    ?.round()
+                label: _menuItem.storingCondition.maxStoringHours
+                    .round()
                     .toString(),
                 onChanged: (value) {
                   setState(() {
-                    _menuItemDto.storingCondition!.maxStoringHours =
-                        value.round();
+                    _menuItem.storingCondition.maxStoringHours = value.round();
                   });
                 },
               ),
@@ -252,12 +261,13 @@ class _MenuItemFormState extends State<MenuItemForm> {
     );
   }
 
-  void _submit() {
+  void _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print(_menuItemDto);
-      MenuItemResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
-          .apiV1MenuItemPost(menuItemDto: _menuItemDto);
+      print(_menuItem);
+      await MenuItemResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
+          .addMenuItem(menuItem: _menuItem);
+      Navigator.pop(context);
     }
   }
 }

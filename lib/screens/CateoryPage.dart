@@ -20,7 +20,7 @@ class _CategoryPageState extends State<CategoryPage> {
       body: FutureBuilder(
         future:
             CategoryResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
-                .apiV1MenuCategoryGet(),
+                .listCategories(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(

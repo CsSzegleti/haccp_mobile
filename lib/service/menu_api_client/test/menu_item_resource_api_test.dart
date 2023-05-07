@@ -17,28 +17,28 @@ void main() {
   // final instance = MenuItemResourceApi();
 
   group('tests for MenuItemResourceApi', () {
-    //Future<MenuItem> apiV1MenuItemGet() async
-    test('test apiV1MenuItemGet', () async {
+    //Future<Object> addMenuItem({ MenuItem menuItem }) async
+    test('test addMenuItem', () async {
       // TODO
     });
 
-    //Future apiV1MenuItemIdDelete(int id) async
-    test('test apiV1MenuItemIdDelete', () async {
+    //Future deleteMenuItemById(int id) async
+    test('test deleteMenuItemById', () async {
       // TODO
     });
 
-    //Future<MenuItem> apiV1MenuItemIdGet(int id) async
-    test('test apiV1MenuItemIdGet', () async {
+    //Future<MenuItem> getMenuItemById(int id) async
+    test('test getMenuItemById', () async {
       // TODO
     });
 
-    //Future<Object> apiV1MenuItemPost({ MenuItemDto menuItemDto }) async
-    test('test apiV1MenuItemPost', () async {
+    //Future<List<MenuItem>> listMenuItems() async
+    test('test listMenuItems', () async {
       // TODO
     });
 
-    //Future<Object> apiV1MenuItemPut({ MenuItemDto menuItemDto }) async
-    test('test apiV1MenuItemPut', () async {
+    //Future<Object> updateMenuItem(int id, { MenuItem menuItem }) async
+    test('test updateMenuItem', () async {
       // TODO
     });
 

@@ -16,7 +16,7 @@ class MenuItem {
     this.id,
     required this.name,
     required this.price,
-    required this.category,
+    this.category,
     required this.currency,
     required this.description,
     this.imgUrls = const [],
@@ -37,7 +37,13 @@ class MenuItem {
 
   double price;
 
-  Category category;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  Category? category;
 
   String currency;
 
@@ -76,7 +82,7 @@ class MenuItem {
     (id == null ? 0 : id!.hashCode) +
     (name.hashCode) +
     (price.hashCode) +
-    (category.hashCode) +
+    (category == null ? 0 : category!.hashCode) +
     (currency.hashCode) +
     (description.hashCode) +
     (imgUrls.hashCode) +
@@ -96,7 +102,11 @@ class MenuItem {
     }
       json[r'name'] = this.name;
       json[r'price'] = this.price;
+    if (this.category != null) {
       json[r'category'] = this.category;
+    } else {
+      json[r'category'] = null;
+    }
       json[r'currency'] = this.currency;
       json[r'description'] = this.description;
       json[r'imgUrls'] = this.imgUrls;
@@ -132,7 +142,7 @@ class MenuItem {
         id: mapValueOfType<int>(json, r'id'),
         name: mapValueOfType<String>(json, r'name')!,
         price: mapValueOfType<double>(json, r'price')!,
-        category: Category.fromJson(json[r'category'])!,
+        category: Category.fromJson(json[r'category']),
         currency: mapValueOfType<String>(json, r'currency')!,
         description: mapValueOfType<String>(json, r'description')!,
         imgUrls: json[r'imgUrls'] is List
@@ -192,7 +202,6 @@ class MenuItem {
   static const requiredKeys = <String>{
     'name',
     'price',
-    'category',
     'currency',
     'description',
     'storingCondition',

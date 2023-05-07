@@ -511,7 +511,7 @@
         }
       },
       "MenuItem" : {
-        "required" : [ "name", "price", "category", "currency", "description", "storingCondition" ],
+        "required" : [ "name", "price", "currency", "description", "storingCondition" ],
         "type" : "object",
         "properties" : {
           "id" : {

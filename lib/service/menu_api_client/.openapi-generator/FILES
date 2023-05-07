@@ -1,4 +1,5 @@
 .gitignore
+.openapi-generator-ignore
 .travis.yml
 README.md
 analysis_options.yaml
@@ -27,3 +28,10 @@ lib/model/category.dart
 lib/model/menu_item.dart
 lib/model/storing_condition.dart
 pubspec.yaml
+test/allergen_resource_api_test.dart
+test/allergen_test.dart
+test/category_resource_api_test.dart
+test/category_test.dart
+test/menu_item_resource_api_test.dart
+test/menu_item_test.dart
+test/storing_condition_test.dart

@@ -17,18 +17,8 @@ void main() {
   // final instance = CategoryResourceApi();
 
   group('tests for CategoryResourceApi', () {
-    //Future<Category> apiV1MenuCategoryGet() async
-    test('test apiV1MenuCategoryGet', () async {
-      // TODO
-    });
-
-    //Future apiV1MenuCategoryIdDelete(int id) async
-    test('test apiV1MenuCategoryIdDelete', () async {
-      // TODO
-    });
-
-    //Future<Category> apiV1MenuCategoryIdGet(int id) async
-    test('test apiV1MenuCategoryIdGet', () async {
+    //Future<Object> addCategory({ Category category }) async
+    test('test addCategory', () async {
       // TODO
     });
 
@@ -37,13 +27,23 @@ void main() {
       // TODO
     });
 
-    //Future<Object> apiV1MenuCategoryPost({ Category category }) async
-    test('test apiV1MenuCategoryPost', () async {
+    //Future deleteCategoryById(int id) async
+    test('test deleteCategoryById', () async {
       // TODO
     });
 
-    //Future<Object> apiV1MenuCategoryPut({ Category category }) async
-    test('test apiV1MenuCategoryPut', () async {
+    //Future<Category> getCategoryById(int id) async
+    test('test getCategoryById', () async {
+      // TODO
+    });
+
+    //Future<List<Category>> listCategories() async
+    test('test listCategories', () async {
+      // TODO
+    });
+
+    //Future<Object> modifyCategory(int id, { Category category }) async
+    test('test modifyCategory', () async {
       // TODO
     });
 
