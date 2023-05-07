@@ -22,6 +22,7 @@
     "/api/v1/menu/allergen" : {
       "get" : {
         "tags" : [ "Allergen Resource" ],
+        "operationId" : "ListAllergens",
         "responses" : {
           "200" : {
             "description" : "Successful query",
@@ -38,36 +39,9 @@
           }
         }
       },
-      "put" : {
-        "tags" : [ "Allergen Resource" ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Allergen"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "Modification successful",
-            "content" : {
-              "application/json" : {
-                "schema" : { }
-              }
-            }
-          },
-          "500" : {
-            "description" : "No such item",
-            "content" : {
-              "application/json" : { }
-            }
-          }
-        }
-      },
       "post" : {
         "tags" : [ "Allergen Resource" ],
+        "operationId" : "AddAllergen",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -98,6 +72,7 @@
     "/api/v1/menu/allergen/{id}" : {
       "get" : {
         "tags" : [ "Allergen Resource" ],
+        "operationId" : "GetAllergenById",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -126,8 +101,47 @@
           }
         }
       },
+      "put" : {
+        "tags" : [ "Allergen Resource" ],
+        "operationId" : "ModifyAllergen",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Allergen"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Modification successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "No such item",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
       "delete" : {
         "tags" : [ "Allergen Resource" ],
+        "operationId" : "DeleteAllergenById",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -150,6 +164,7 @@
     "/api/v1/menu/category" : {
       "get" : {
         "tags" : [ "Category Resource" ],
+        "operationId" : "ListCategories",
         "responses" : {
           "200" : {
             "description" : "Successful query",
@@ -166,36 +181,9 @@
           }
         }
       },
-      "put" : {
-        "tags" : [ "Category Resource" ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Category"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "Modification successful",
-            "content" : {
-              "application/json" : {
-                "schema" : { }
-              }
-            }
-          },
-          "500" : {
-            "description" : "No such item",
-            "content" : {
-              "application/json" : { }
-            }
-          }
-        }
-      },
       "post" : {
         "tags" : [ "Category Resource" ],
+        "operationId" : "AddCategory",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -226,6 +214,7 @@
     "/api/v1/menu/category/{id}" : {
       "get" : {
         "tags" : [ "Category Resource" ],
+        "operationId" : "GetCategoryById",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -254,8 +243,47 @@
           }
         }
       },
+      "put" : {
+        "tags" : [ "Category Resource" ],
+        "operationId" : "ModifyCategory",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Category"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Modification successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "No such item",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
       "delete" : {
         "tags" : [ "Category Resource" ],
+        "operationId" : "DeleteCategoryById",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -307,6 +335,7 @@
     "/api/v1/menu/item" : {
       "get" : {
         "tags" : [ "Menu Item Resource" ],
+        "operationId" : "ListMenuItems",
         "responses" : {
           "200" : {
             "description" : "Successful query",
@@ -315,7 +344,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/MenuItemDto"
+                    "$ref" : "#/components/schemas/MenuItem"
                   }
                 }
               }
@@ -323,41 +352,14 @@
           }
         }
       },
-      "put" : {
-        "tags" : [ "Menu Item Resource" ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/MenuItemDto"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "Modification successful",
-            "content" : {
-              "application/json" : {
-                "schema" : { }
-              }
-            }
-          },
-          "500" : {
-            "description" : "No such item",
-            "content" : {
-              "application/json" : { }
-            }
-          }
-        }
-      },
       "post" : {
         "tags" : [ "Menu Item Resource" ],
+        "operationId" : "AddMenuItem",
         "requestBody" : {
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/MenuItemDto"
+                "$ref" : "#/components/schemas/MenuItem"
               }
             }
           }
@@ -383,6 +385,7 @@
     "/api/v1/menu/item/{id}" : {
       "get" : {
         "tags" : [ "Menu Item Resource" ],
+        "operationId" : "GetMenuItemById",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -398,7 +401,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/MenuItemDto"
+                  "$ref" : "#/components/schemas/MenuItem"
                 }
               }
             }
@@ -411,8 +414,47 @@
           }
         }
       },
+      "put" : {
+        "tags" : [ "Menu Item Resource" ],
+        "operationId" : "UpdateMenuItem",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/MenuItem"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Modification successful",
+            "content" : {
+              "application/json" : {
+                "schema" : { }
+              }
+            }
+          },
+          "500" : {
+            "description" : "No such item",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
       "delete" : {
         "tags" : [ "Menu Item Resource" ],
+        "operationId" : "DeleteMenuItemById",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -436,6 +478,7 @@
   "components" : {
     "schemas" : {
       "Allergen" : {
+        "required" : [ "longName", "shortName" ],
         "type" : "object",
         "properties" : {
           "id" : {
@@ -451,6 +494,7 @@
         }
       },
       "Category" : {
+        "required" : [ "name", "menuCardPos" ],
         "type" : "object",
         "properties" : {
           "id" : {
@@ -460,12 +504,6 @@
           "name" : {
             "type" : "string"
           },
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/MenuItem"
-            }
-          },
           "menuCardPos" : {
             "format" : "int32",
             "type" : "integer"
@@ -473,6 +511,7 @@
         }
       },
       "MenuItem" : {
+        "required" : [ "name", "price", "category", "currency", "description", "storingCondition" ],
         "type" : "object",
         "properties" : {
           "id" : {
@@ -515,53 +554,8 @@
           }
         }
       },
-      "MenuItemDto" : {
-        "required" : [ "storingCondition" ],
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "format" : "int64",
-            "type" : "integer"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "price" : {
-            "format" : "double",
-            "type" : "number"
-          },
-          "currency" : {
-            "type" : "string"
-          },
-          "categoryId" : {
-            "format" : "int64",
-            "type" : "integer"
-          },
-          "description" : {
-            "type" : "string"
-          },
-          "imgUrls" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "allergenIds" : {
-            "type" : "array",
-            "items" : {
-              "format" : "int64",
-              "type" : "integer"
-            }
-          },
-          "isPreparable" : {
-            "type" : "boolean"
-          },
-          "storingCondition" : {
-            "$ref" : "#/components/schemas/StoringCondition"
-          }
-        }
-      },
       "StoringCondition" : {
+        "required" : [ "temperature", "maxStoringHours" ],
         "type" : "object",
         "properties" : {
           "id" : {
