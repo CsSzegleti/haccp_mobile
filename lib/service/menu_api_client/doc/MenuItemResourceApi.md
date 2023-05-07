@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 
 # **apiV1MenuItemGet**
-> MenuItem apiV1MenuItemGet()
+> List<MenuItemDto> apiV1MenuItemGet()
 
 
 
@@ -40,7 +40,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**MenuItem**](MenuItem.md)
+[**List<MenuItemDto>**](MenuItemDto.md)
 
 ### Authorization
 
@@ -94,7 +94,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiV1MenuItemIdGet**
-> MenuItem apiV1MenuItemIdGet(id)
+> MenuItemDto apiV1MenuItemIdGet(id)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MenuItem**](MenuItem.md)
+[**MenuItemDto**](MenuItemDto.md)
 
 ### Authorization
 

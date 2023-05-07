@@ -42,7 +42,7 @@ class CategoryResourceApi {
     );
   }
 
-  Future<Category?> apiV1MenuCategoryGet() async {
+  Future<List<Category>?> apiV1MenuCategoryGet() async {
     final response = await apiV1MenuCategoryGetWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -51,8 +51,11 @@ class CategoryResourceApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Category',) as Category;
-    
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<Category>') as List)
+        .cast<Category>()
+        .toList();
+
     }
     return null;
   }

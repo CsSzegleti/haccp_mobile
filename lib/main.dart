@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:haccp_mobile/screens/menu_item_form.dart';
+import 'package:haccp_mobile/screens/CateoryPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +14,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      initialRoute: "/",
+      routes: {
+        // "/": (context) => const MyHomePage(title: 'HACCP Home Page'),
+        "/categories": (context) => const CategoryPage(),
+        // "/menuItems": (context) => const MenuItemsPage(),
+        "/addMenuItem": (context) => const MenuItemForm(),
+      },
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,7 +33,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'HACCP Home Page'),
     );
   }
 }
@@ -94,19 +103,18 @@ class _MyHomePageState extends State<MyHomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+          children: [
+            const Flexible(
+              // height: 200,
+              child: const CategoryPage(),
+            )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          Navigator.pushNamed(context, "/addMenuItem");
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

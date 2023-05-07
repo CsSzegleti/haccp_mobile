@@ -42,7 +42,7 @@ class AllergenResourceApi {
     );
   }
 
-  Future<StoringCondition?> apiV1MenuAllergenGet() async {
+  Future<List<Allergen>?> apiV1MenuAllergenGet() async {
     final response = await apiV1MenuAllergenGetWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -51,8 +51,11 @@ class AllergenResourceApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'StoringCondition',) as StoringCondition;
-    
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<Allergen>') as List)
+        .cast<Allergen>()
+        .toList();
+
     }
     return null;
   }
@@ -130,7 +133,7 @@ class AllergenResourceApi {
   /// Parameters:
   ///
   /// * [int] id (required):
-  Future<StoringCondition?> apiV1MenuAllergenIdGet(int id,) async {
+  Future<Allergen?> apiV1MenuAllergenIdGet(int id,) async {
     final response = await apiV1MenuAllergenIdGetWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -139,7 +142,7 @@ class AllergenResourceApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'StoringCondition',) as StoringCondition;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Allergen',) as Allergen;
     
     }
     return null;

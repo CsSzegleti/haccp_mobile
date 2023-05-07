@@ -28,7 +28,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/StoringCondition"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Allergen"
+                  }
                 }
               }
             }
@@ -110,7 +113,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/StoringCondition"
+                  "$ref" : "#/components/schemas/Allergen"
                 }
               }
             }
@@ -153,7 +156,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Category"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Category"
+                  }
                 }
               }
             }
@@ -307,7 +313,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/MenuItem"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MenuItemDto"
+                  }
                 }
               }
             }
@@ -389,7 +398,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/MenuItem"
+                  "$ref" : "#/components/schemas/MenuItemDto"
                 }
               }
             }
@@ -451,6 +460,12 @@
           "name" : {
             "type" : "string"
           },
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/MenuItem"
+            }
+          },
           "menuCardPos" : {
             "format" : "int32",
             "type" : "integer"
@@ -501,6 +516,7 @@
         }
       },
       "MenuItemDto" : {
+        "required" : [ "storingCondition" ],
         "type" : "object",
         "properties" : {
           "id" : {

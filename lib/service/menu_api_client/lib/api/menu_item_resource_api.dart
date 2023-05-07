@@ -42,7 +42,7 @@ class MenuItemResourceApi {
     );
   }
 
-  Future<MenuItem?> apiV1MenuItemGet() async {
+  Future<List<MenuItemDto>?> apiV1MenuItemGet() async {
     final response = await apiV1MenuItemGetWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -51,8 +51,11 @@ class MenuItemResourceApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'MenuItem',) as MenuItem;
-    
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<MenuItemDto>') as List)
+        .cast<MenuItemDto>()
+        .toList();
+
     }
     return null;
   }
@@ -130,7 +133,7 @@ class MenuItemResourceApi {
   /// Parameters:
   ///
   /// * [int] id (required):
-  Future<MenuItem?> apiV1MenuItemIdGet(int id,) async {
+  Future<MenuItemDto?> apiV1MenuItemIdGet(int id,) async {
     final response = await apiV1MenuItemIdGetWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -139,7 +142,7 @@ class MenuItemResourceApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'MenuItem',) as MenuItem;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'MenuItemDto',) as MenuItemDto;
     
     }
     return null;

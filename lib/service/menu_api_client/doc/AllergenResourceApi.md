@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 
 # **apiV1MenuAllergenGet**
-> StoringCondition apiV1MenuAllergenGet()
+> List<Allergen> apiV1MenuAllergenGet()
 
 
 
@@ -40,7 +40,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**StoringCondition**](StoringCondition.md)
+[**List<Allergen>**](Allergen.md)
 
 ### Authorization
 
@@ -94,7 +94,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiV1MenuAllergenIdGet**
-> StoringCondition apiV1MenuAllergenIdGet(id)
+> Allergen apiV1MenuAllergenIdGet(id)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StoringCondition**](StoringCondition.md)
+[**Allergen**](Allergen.md)
 
 ### Authorization
 

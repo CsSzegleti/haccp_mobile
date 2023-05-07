@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 
 # **apiV1MenuCategoryGet**
-> Category apiV1MenuCategoryGet()
+> List<Category> apiV1MenuCategoryGet()
 
 
 
@@ -41,7 +41,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Category**](Category.md)
+[**List<Category>**](Category.md)
 
 ### Authorization
 

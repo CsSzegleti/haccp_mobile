@@ -32,11 +32,14 @@ dependencies:
     sdk: flutter
   menu_api:
     path: lib/service/menu_api_client
+  multi_select_flutter: ^4.1.3
+  multiselect: ^0.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  multiselect_formfield: ^0.1.7
 
 dev_dependencies:
   flutter_test:
