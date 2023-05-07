@@ -14,15 +14,15 @@ class MenuItem {
   /// Returns a new [MenuItem] instance.
   MenuItem({
     this.id,
-    this.name,
-    this.price,
-    this.category,
-    this.currency,
-    this.description,
+    required this.name,
+    required this.price,
+    required this.category,
+    required this.currency,
+    required this.description,
     this.imgUrls = const [],
     this.allergens = const [],
     this.isPreparable,
-    this.storingCondition,
+    required this.storingCondition,
   });
 
   ///
@@ -33,45 +33,15 @@ class MenuItem {
   ///
   int? id;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? name;
+  String name;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  double? price;
+  double price;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  Category? category;
+  Category category;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? currency;
+  String currency;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? description;
+  String description;
 
   List<String> imgUrls;
 
@@ -85,13 +55,7 @@ class MenuItem {
   ///
   bool? isPreparable;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  StoringCondition? storingCondition;
+  StoringCondition storingCondition;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is MenuItem &&
@@ -110,15 +74,15 @@ class MenuItem {
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (id == null ? 0 : id!.hashCode) +
-    (name == null ? 0 : name!.hashCode) +
-    (price == null ? 0 : price!.hashCode) +
-    (category == null ? 0 : category!.hashCode) +
-    (currency == null ? 0 : currency!.hashCode) +
-    (description == null ? 0 : description!.hashCode) +
+    (name.hashCode) +
+    (price.hashCode) +
+    (category.hashCode) +
+    (currency.hashCode) +
+    (description.hashCode) +
     (imgUrls.hashCode) +
     (allergens.hashCode) +
     (isPreparable == null ? 0 : isPreparable!.hashCode) +
-    (storingCondition == null ? 0 : storingCondition!.hashCode);
+    (storingCondition.hashCode);
 
   @override
   String toString() => 'MenuItem[id=$id, name=$name, price=$price, category=$category, currency=$currency, description=$description, imgUrls=$imgUrls, allergens=$allergens, isPreparable=$isPreparable, storingCondition=$storingCondition]';
@@ -130,31 +94,11 @@ class MenuItem {
     } else {
       json[r'id'] = null;
     }
-    if (this.name != null) {
       json[r'name'] = this.name;
-    } else {
-      json[r'name'] = null;
-    }
-    if (this.price != null) {
       json[r'price'] = this.price;
-    } else {
-      json[r'price'] = null;
-    }
-    if (this.category != null) {
       json[r'category'] = this.category;
-    } else {
-      json[r'category'] = null;
-    }
-    if (this.currency != null) {
       json[r'currency'] = this.currency;
-    } else {
-      json[r'currency'] = null;
-    }
-    if (this.description != null) {
       json[r'description'] = this.description;
-    } else {
-      json[r'description'] = null;
-    }
       json[r'imgUrls'] = this.imgUrls;
       json[r'allergens'] = this.allergens;
     if (this.isPreparable != null) {
@@ -162,11 +106,7 @@ class MenuItem {
     } else {
       json[r'isPreparable'] = null;
     }
-    if (this.storingCondition != null) {
       json[r'storingCondition'] = this.storingCondition;
-    } else {
-      json[r'storingCondition'] = null;
-    }
     return json;
   }
 
@@ -190,17 +130,17 @@ class MenuItem {
 
       return MenuItem(
         id: mapValueOfType<int>(json, r'id'),
-        name: mapValueOfType<String>(json, r'name'),
-        price: mapValueOfType<double>(json, r'price'),
-        category: Category.fromJson(json[r'category']),
-        currency: mapValueOfType<String>(json, r'currency'),
-        description: mapValueOfType<String>(json, r'description'),
+        name: mapValueOfType<String>(json, r'name')!,
+        price: mapValueOfType<double>(json, r'price')!,
+        category: Category.fromJson(json[r'category'])!,
+        currency: mapValueOfType<String>(json, r'currency')!,
+        description: mapValueOfType<String>(json, r'description')!,
         imgUrls: json[r'imgUrls'] is List
             ? (json[r'imgUrls'] as List).cast<String>()
             : const [],
         allergens: Allergen.listFromJson(json[r'allergens']) ?? const [],
         isPreparable: mapValueOfType<bool>(json, r'isPreparable'),
-        storingCondition: StoringCondition.fromJson(json[r'storingCondition']),
+        storingCondition: StoringCondition.fromJson(json[r'storingCondition'])!,
       );
     }
     return null;
@@ -250,6 +190,12 @@ class MenuItem {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
+    'name',
+    'price',
+    'category',
+    'currency',
+    'description',
+    'storingCondition',
   };
 }
 

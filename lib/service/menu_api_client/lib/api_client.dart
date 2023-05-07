@@ -187,8 +187,6 @@ class ApiClient {
           return Category.fromJson(value);
         case 'MenuItem':
           return MenuItem.fromJson(value);
-        case 'MenuItemDto':
-          return MenuItemDto.fromJson(value);
         case 'StoringCondition':
           return StoringCondition.fromJson(value);
         default:

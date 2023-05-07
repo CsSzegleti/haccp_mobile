@@ -34,7 +34,6 @@ part 'api/menu_item_resource_api.dart';
 part 'model/allergen.dart';
 part 'model/category.dart';
 part 'model/menu_item.dart';
-part 'model/menu_item_dto.dart';
 part 'model/storing_condition.dart';
 
 

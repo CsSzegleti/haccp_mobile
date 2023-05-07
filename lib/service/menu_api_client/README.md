@@ -42,12 +42,13 @@ import 'package:menu_api/api.dart';
 
 
 final api_instance = AllergenResourceApi();
+final allergen = Allergen(); // Allergen | 
 
 try {
-    final result = api_instance.apiV1MenuAllergenGet();
+    final result = api_instance.addAllergen(allergen);
     print(result);
 } catch (e) {
-    print('Exception when calling AllergenResourceApi->apiV1MenuAllergenGet: $e\n');
+    print('Exception when calling AllergenResourceApi->addAllergen: $e\n');
 }
 
 ```
@@ -58,22 +59,22 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AllergenResourceApi* | [**apiV1MenuAllergenGet**](doc//AllergenResourceApi.md#apiv1menuallergenget) | **GET** /api/v1/menu/allergen | 
-*AllergenResourceApi* | [**apiV1MenuAllergenIdDelete**](doc//AllergenResourceApi.md#apiv1menuallergeniddelete) | **DELETE** /api/v1/menu/allergen/{id} | 
-*AllergenResourceApi* | [**apiV1MenuAllergenIdGet**](doc//AllergenResourceApi.md#apiv1menuallergenidget) | **GET** /api/v1/menu/allergen/{id} | 
-*AllergenResourceApi* | [**apiV1MenuAllergenPost**](doc//AllergenResourceApi.md#apiv1menuallergenpost) | **POST** /api/v1/menu/allergen | 
-*AllergenResourceApi* | [**apiV1MenuAllergenPut**](doc//AllergenResourceApi.md#apiv1menuallergenput) | **PUT** /api/v1/menu/allergen | 
-*CategoryResourceApi* | [**apiV1MenuCategoryGet**](doc//CategoryResourceApi.md#apiv1menucategoryget) | **GET** /api/v1/menu/category | 
-*CategoryResourceApi* | [**apiV1MenuCategoryIdDelete**](doc//CategoryResourceApi.md#apiv1menucategoryiddelete) | **DELETE** /api/v1/menu/category/{id} | 
-*CategoryResourceApi* | [**apiV1MenuCategoryIdGet**](doc//CategoryResourceApi.md#apiv1menucategoryidget) | **GET** /api/v1/menu/category/{id} | 
+*AllergenResourceApi* | [**addAllergen**](doc//AllergenResourceApi.md#addallergen) | **POST** /api/v1/menu/allergen | 
+*AllergenResourceApi* | [**deleteAllergenById**](doc//AllergenResourceApi.md#deleteallergenbyid) | **DELETE** /api/v1/menu/allergen/{id} | 
+*AllergenResourceApi* | [**getAllergenById**](doc//AllergenResourceApi.md#getallergenbyid) | **GET** /api/v1/menu/allergen/{id} | 
+*AllergenResourceApi* | [**listAllergens**](doc//AllergenResourceApi.md#listallergens) | **GET** /api/v1/menu/allergen | 
+*AllergenResourceApi* | [**modifyAllergen**](doc//AllergenResourceApi.md#modifyallergen) | **PUT** /api/v1/menu/allergen/{id} | 
+*CategoryResourceApi* | [**addCategory**](doc//CategoryResourceApi.md#addcategory) | **POST** /api/v1/menu/category | 
 *CategoryResourceApi* | [**apiV1MenuCategoryIdItemsGet**](doc//CategoryResourceApi.md#apiv1menucategoryiditemsget) | **GET** /api/v1/menu/category/{id}/items | 
-*CategoryResourceApi* | [**apiV1MenuCategoryPost**](doc//CategoryResourceApi.md#apiv1menucategorypost) | **POST** /api/v1/menu/category | 
-*CategoryResourceApi* | [**apiV1MenuCategoryPut**](doc//CategoryResourceApi.md#apiv1menucategoryput) | **PUT** /api/v1/menu/category | 
-*MenuItemResourceApi* | [**apiV1MenuItemGet**](doc//MenuItemResourceApi.md#apiv1menuitemget) | **GET** /api/v1/menu/item | 
-*MenuItemResourceApi* | [**apiV1MenuItemIdDelete**](doc//MenuItemResourceApi.md#apiv1menuitemiddelete) | **DELETE** /api/v1/menu/item/{id} | 
-*MenuItemResourceApi* | [**apiV1MenuItemIdGet**](doc//MenuItemResourceApi.md#apiv1menuitemidget) | **GET** /api/v1/menu/item/{id} | 
-*MenuItemResourceApi* | [**apiV1MenuItemPost**](doc//MenuItemResourceApi.md#apiv1menuitempost) | **POST** /api/v1/menu/item | 
-*MenuItemResourceApi* | [**apiV1MenuItemPut**](doc//MenuItemResourceApi.md#apiv1menuitemput) | **PUT** /api/v1/menu/item | 
+*CategoryResourceApi* | [**deleteCategoryById**](doc//CategoryResourceApi.md#deletecategorybyid) | **DELETE** /api/v1/menu/category/{id} | 
+*CategoryResourceApi* | [**getCategoryById**](doc//CategoryResourceApi.md#getcategorybyid) | **GET** /api/v1/menu/category/{id} | 
+*CategoryResourceApi* | [**listCategories**](doc//CategoryResourceApi.md#listcategories) | **GET** /api/v1/menu/category | 
+*CategoryResourceApi* | [**modifyCategory**](doc//CategoryResourceApi.md#modifycategory) | **PUT** /api/v1/menu/category/{id} | 
+*MenuItemResourceApi* | [**addMenuItem**](doc//MenuItemResourceApi.md#addmenuitem) | **POST** /api/v1/menu/item | 
+*MenuItemResourceApi* | [**deleteMenuItemById**](doc//MenuItemResourceApi.md#deletemenuitembyid) | **DELETE** /api/v1/menu/item/{id} | 
+*MenuItemResourceApi* | [**getMenuItemById**](doc//MenuItemResourceApi.md#getmenuitembyid) | **GET** /api/v1/menu/item/{id} | 
+*MenuItemResourceApi* | [**listMenuItems**](doc//MenuItemResourceApi.md#listmenuitems) | **GET** /api/v1/menu/item | 
+*MenuItemResourceApi* | [**updateMenuItem**](doc//MenuItemResourceApi.md#updatemenuitem) | **PUT** /api/v1/menu/item/{id} | 
 
 
 ## Documentation For Models
@@ -81,7 +82,6 @@ Class | Method | HTTP request | Description
  - [Allergen](doc//Allergen.md)
  - [Category](doc//Category.md)
  - [MenuItem](doc//MenuItem.md)
- - [MenuItemDto](doc//MenuItemDto.md)
  - [StoringCondition](doc//StoringCondition.md)
 
 

@@ -16,24 +16,27 @@ class MenuItemResourceApi {
 
   final ApiClient apiClient;
 
-  /// Performs an HTTP 'GET /api/v1/menu/item' operation and returns the [Response].
-  Future<Response> apiV1MenuItemGetWithHttpInfo() async {
+  /// Performs an HTTP 'POST /api/v1/menu/item' operation and returns the [Response].
+  /// Parameters:
+  ///
+  /// * [MenuItem] menuItem:
+  Future<Response> addMenuItemWithHttpInfo({ MenuItem? menuItem, }) async {
     // ignore: prefer_const_declarations
     final path = r'/api/v1/menu/item';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = menuItem;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
       path,
-      'GET',
+      'POST',
       queryParams,
       postBody,
       headerParams,
@@ -42,8 +45,11 @@ class MenuItemResourceApi {
     );
   }
 
-  Future<List<MenuItemDto>?> apiV1MenuItemGet() async {
-    final response = await apiV1MenuItemGetWithHttpInfo();
+  /// Parameters:
+  ///
+  /// * [MenuItem] menuItem:
+  Future<Object?> addMenuItem({ MenuItem? menuItem, }) async {
+    final response = await addMenuItemWithHttpInfo( menuItem: menuItem, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -51,11 +57,8 @@ class MenuItemResourceApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      final responseBody = await _decodeBodyBytes(response);
-      return (await apiClient.deserializeAsync(responseBody, 'List<MenuItemDto>') as List)
-        .cast<MenuItemDto>()
-        .toList();
-
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+    
     }
     return null;
   }
@@ -64,7 +67,7 @@ class MenuItemResourceApi {
   /// Parameters:
   ///
   /// * [int] id (required):
-  Future<Response> apiV1MenuItemIdDeleteWithHttpInfo(int id,) async {
+  Future<Response> deleteMenuItemByIdWithHttpInfo(int id,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/v1/menu/item/{id}'
       .replaceAll('{id}', id.toString());
@@ -93,8 +96,8 @@ class MenuItemResourceApi {
   /// Parameters:
   ///
   /// * [int] id (required):
-  Future<void> apiV1MenuItemIdDelete(int id,) async {
-    final response = await apiV1MenuItemIdDeleteWithHttpInfo(id,);
+  Future<void> deleteMenuItemById(int id,) async {
+    final response = await deleteMenuItemByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -104,7 +107,7 @@ class MenuItemResourceApi {
   /// Parameters:
   ///
   /// * [int] id (required):
-  Future<Response> apiV1MenuItemIdGetWithHttpInfo(int id,) async {
+  Future<Response> getMenuItemByIdWithHttpInfo(int id,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/v1/menu/item/{id}'
       .replaceAll('{id}', id.toString());
@@ -133,8 +136,8 @@ class MenuItemResourceApi {
   /// Parameters:
   ///
   /// * [int] id (required):
-  Future<MenuItemDto?> apiV1MenuItemIdGet(int id,) async {
-    final response = await apiV1MenuItemIdGetWithHttpInfo(id,);
+  Future<MenuItem?> getMenuItemById(int id,) async {
+    final response = await getMenuItemByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -142,33 +145,30 @@ class MenuItemResourceApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'MenuItemDto',) as MenuItemDto;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'MenuItem',) as MenuItem;
     
     }
     return null;
   }
 
-  /// Performs an HTTP 'POST /api/v1/menu/item' operation and returns the [Response].
-  /// Parameters:
-  ///
-  /// * [MenuItemDto] menuItemDto:
-  Future<Response> apiV1MenuItemPostWithHttpInfo({ MenuItemDto? menuItemDto, }) async {
+  /// Performs an HTTP 'GET /api/v1/menu/item' operation and returns the [Response].
+  Future<Response> listMenuItemsWithHttpInfo() async {
     // ignore: prefer_const_declarations
     final path = r'/api/v1/menu/item';
 
     // ignore: prefer_final_locals
-    Object? postBody = menuItemDto;
+    Object? postBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json'];
+    const contentTypes = <String>[];
 
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'GET',
       queryParams,
       postBody,
       headerParams,
@@ -177,11 +177,8 @@ class MenuItemResourceApi {
     );
   }
 
-  /// Parameters:
-  ///
-  /// * [MenuItemDto] menuItemDto:
-  Future<Object?> apiV1MenuItemPost({ MenuItemDto? menuItemDto, }) async {
-    final response = await apiV1MenuItemPostWithHttpInfo( menuItemDto: menuItemDto, );
+  Future<List<MenuItem>?> listMenuItems() async {
+    final response = await listMenuItemsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -189,22 +186,28 @@ class MenuItemResourceApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
-    
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<MenuItem>') as List)
+        .cast<MenuItem>()
+        .toList();
+
     }
     return null;
   }
 
-  /// Performs an HTTP 'PUT /api/v1/menu/item' operation and returns the [Response].
+  /// Performs an HTTP 'PUT /api/v1/menu/item/{id}' operation and returns the [Response].
   /// Parameters:
   ///
-  /// * [MenuItemDto] menuItemDto:
-  Future<Response> apiV1MenuItemPutWithHttpInfo({ MenuItemDto? menuItemDto, }) async {
+  /// * [int] id (required):
+  ///
+  /// * [MenuItem] menuItem:
+  Future<Response> updateMenuItemWithHttpInfo(int id, { MenuItem? menuItem, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/api/v1/menu/item';
+    final path = r'/api/v1/menu/item/{id}'
+      .replaceAll('{id}', id.toString());
 
     // ignore: prefer_final_locals
-    Object? postBody = menuItemDto;
+    Object? postBody = menuItem;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -226,9 +229,11 @@ class MenuItemResourceApi {
 
   /// Parameters:
   ///
-  /// * [MenuItemDto] menuItemDto:
-  Future<Object?> apiV1MenuItemPut({ MenuItemDto? menuItemDto, }) async {
-    final response = await apiV1MenuItemPutWithHttpInfo( menuItemDto: menuItemDto, );
+  /// * [int] id (required):
+  ///
+  /// * [MenuItem] menuItem:
+  Future<Object?> updateMenuItem(int id, { MenuItem? menuItem, }) async {
+    final response = await updateMenuItemWithHttpInfo(id,  menuItem: menuItem, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }

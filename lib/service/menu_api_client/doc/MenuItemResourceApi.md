@@ -9,15 +9,15 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV1MenuItemGet**](MenuItemResourceApi.md#apiv1menuitemget) | **GET** /api/v1/menu/item | 
-[**apiV1MenuItemIdDelete**](MenuItemResourceApi.md#apiv1menuitemiddelete) | **DELETE** /api/v1/menu/item/{id} | 
-[**apiV1MenuItemIdGet**](MenuItemResourceApi.md#apiv1menuitemidget) | **GET** /api/v1/menu/item/{id} | 
-[**apiV1MenuItemPost**](MenuItemResourceApi.md#apiv1menuitempost) | **POST** /api/v1/menu/item | 
-[**apiV1MenuItemPut**](MenuItemResourceApi.md#apiv1menuitemput) | **PUT** /api/v1/menu/item | 
+[**addMenuItem**](MenuItemResourceApi.md#addmenuitem) | **POST** /api/v1/menu/item | 
+[**deleteMenuItemById**](MenuItemResourceApi.md#deletemenuitembyid) | **DELETE** /api/v1/menu/item/{id} | 
+[**getMenuItemById**](MenuItemResourceApi.md#getmenuitembyid) | **GET** /api/v1/menu/item/{id} | 
+[**listMenuItems**](MenuItemResourceApi.md#listmenuitems) | **GET** /api/v1/menu/item | 
+[**updateMenuItem**](MenuItemResourceApi.md#updatemenuitem) | **PUT** /api/v1/menu/item/{id} | 
 
 
-# **apiV1MenuItemGet**
-> List<MenuItemDto> apiV1MenuItemGet()
+# **addMenuItem**
+> Object addMenuItem(menuItem)
 
 
 
@@ -26,21 +26,25 @@ Method | HTTP request | Description
 import 'package:menu_api/api.dart';
 
 final api_instance = MenuItemResourceApi();
+final menuItem = MenuItem(); // MenuItem | 
 
 try {
-    final result = api_instance.apiV1MenuItemGet();
+    final result = api_instance.addMenuItem(menuItem);
     print(result);
 } catch (e) {
-    print('Exception when calling MenuItemResourceApi->apiV1MenuItemGet: $e\n');
+    print('Exception when calling MenuItemResourceApi->addMenuItem: $e\n');
 }
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **menuItem** | [**MenuItem**](MenuItem.md)|  | [optional] 
 
 ### Return type
 
-[**List<MenuItemDto>**](MenuItemDto.md)
+[**Object**](Object.md)
 
 ### Authorization
 
@@ -48,13 +52,13 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **apiV1MenuItemIdDelete**
-> apiV1MenuItemIdDelete(id)
+# **deleteMenuItemById**
+> deleteMenuItemById(id)
 
 
 
@@ -66,9 +70,9 @@ final api_instance = MenuItemResourceApi();
 final id = 789; // int | 
 
 try {
-    api_instance.apiV1MenuItemIdDelete(id);
+    api_instance.deleteMenuItemById(id);
 } catch (e) {
-    print('Exception when calling MenuItemResourceApi->apiV1MenuItemIdDelete: $e\n');
+    print('Exception when calling MenuItemResourceApi->deleteMenuItemById: $e\n');
 }
 ```
 
@@ -93,8 +97,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **apiV1MenuItemIdGet**
-> MenuItemDto apiV1MenuItemIdGet(id)
+# **getMenuItemById**
+> MenuItem getMenuItemById(id)
 
 
 
@@ -106,10 +110,10 @@ final api_instance = MenuItemResourceApi();
 final id = 789; // int | 
 
 try {
-    final result = api_instance.apiV1MenuItemIdGet(id);
+    final result = api_instance.getMenuItemById(id);
     print(result);
 } catch (e) {
-    print('Exception when calling MenuItemResourceApi->apiV1MenuItemIdGet: $e\n');
+    print('Exception when calling MenuItemResourceApi->getMenuItemById: $e\n');
 }
 ```
 
@@ -121,7 +125,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MenuItemDto**](MenuItemDto.md)
+[**MenuItem**](MenuItem.md)
 
 ### Authorization
 
@@ -134,8 +138,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **apiV1MenuItemPost**
-> Object apiV1MenuItemPost(menuItemDto)
+# **listMenuItems**
+> List<MenuItem> listMenuItems()
 
 
 
@@ -144,25 +148,21 @@ No authorization required
 import 'package:menu_api/api.dart';
 
 final api_instance = MenuItemResourceApi();
-final menuItemDto = MenuItemDto(); // MenuItemDto | 
 
 try {
-    final result = api_instance.apiV1MenuItemPost(menuItemDto);
+    final result = api_instance.listMenuItems();
     print(result);
 } catch (e) {
-    print('Exception when calling MenuItemResourceApi->apiV1MenuItemPost: $e\n');
+    print('Exception when calling MenuItemResourceApi->listMenuItems: $e\n');
 }
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **menuItemDto** | [**MenuItemDto**](MenuItemDto.md)|  | [optional] 
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**Object**](Object.md)
+[**List<MenuItem>**](MenuItem.md)
 
 ### Authorization
 
@@ -170,13 +170,13 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **apiV1MenuItemPut**
-> Object apiV1MenuItemPut(menuItemDto)
+# **updateMenuItem**
+> Object updateMenuItem(id, menuItem)
 
 
 
@@ -185,13 +185,14 @@ No authorization required
 import 'package:menu_api/api.dart';
 
 final api_instance = MenuItemResourceApi();
-final menuItemDto = MenuItemDto(); // MenuItemDto | 
+final id = 789; // int | 
+final menuItem = MenuItem(); // MenuItem | 
 
 try {
-    final result = api_instance.apiV1MenuItemPut(menuItemDto);
+    final result = api_instance.updateMenuItem(id, menuItem);
     print(result);
 } catch (e) {
-    print('Exception when calling MenuItemResourceApi->apiV1MenuItemPut: $e\n');
+    print('Exception when calling MenuItemResourceApi->updateMenuItem: $e\n');
 }
 ```
 
@@ -199,7 +200,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **menuItemDto** | [**MenuItemDto**](MenuItemDto.md)|  | [optional] 
+ **id** | **int**|  | 
+ **menuItem** | [**MenuItem**](MenuItem.md)|  | [optional] 
 
 ### Return type
 

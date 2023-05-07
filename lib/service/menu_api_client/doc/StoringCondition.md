@@ -9,9 +9,9 @@ import 'package:menu_api/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | [optional] 
-**temperature** | **double** |  | [optional] 
+**temperature** | **double** |  | 
 **humidity** | **double** |  | [optional] 
-**maxStoringHours** | **int** |  | [optional] 
+**maxStoringHours** | **int** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

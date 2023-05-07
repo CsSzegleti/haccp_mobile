@@ -14,8 +14,8 @@ class Allergen {
   /// Returns a new [Allergen] instance.
   Allergen({
     this.id,
-    this.longName,
-    this.shortName,
+    required this.longName,
+    required this.shortName,
   });
 
   ///
@@ -26,21 +26,9 @@ class Allergen {
   ///
   int? id;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? longName;
+  String longName;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? shortName;
+  String shortName;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Allergen &&
@@ -52,8 +40,8 @@ class Allergen {
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (id == null ? 0 : id!.hashCode) +
-    (longName == null ? 0 : longName!.hashCode) +
-    (shortName == null ? 0 : shortName!.hashCode);
+    (longName.hashCode) +
+    (shortName.hashCode);
 
   @override
   String toString() => 'Allergen[id=$id, longName=$longName, shortName=$shortName]';
@@ -65,16 +53,8 @@ class Allergen {
     } else {
       json[r'id'] = null;
     }
-    if (this.longName != null) {
       json[r'longName'] = this.longName;
-    } else {
-      json[r'longName'] = null;
-    }
-    if (this.shortName != null) {
       json[r'shortName'] = this.shortName;
-    } else {
-      json[r'shortName'] = null;
-    }
     return json;
   }
 
@@ -98,8 +78,8 @@ class Allergen {
 
       return Allergen(
         id: mapValueOfType<int>(json, r'id'),
-        longName: mapValueOfType<String>(json, r'longName'),
-        shortName: mapValueOfType<String>(json, r'shortName'),
+        longName: mapValueOfType<String>(json, r'longName')!,
+        shortName: mapValueOfType<String>(json, r'shortName')!,
       );
     }
     return null;
@@ -149,6 +129,8 @@ class Allergen {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
+    'longName',
+    'shortName',
   };
 }
 

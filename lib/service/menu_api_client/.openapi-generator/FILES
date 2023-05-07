@@ -7,7 +7,6 @@ doc/AllergenResourceApi.md
 doc/Category.md
 doc/CategoryResourceApi.md
 doc/MenuItem.md
-doc/MenuItemDto.md
 doc/MenuItemResourceApi.md
 doc/StoringCondition.md
 git_push.sh
@@ -26,6 +25,5 @@ lib/auth/oauth.dart
 lib/model/allergen.dart
 lib/model/category.dart
 lib/model/menu_item.dart
-lib/model/menu_item_dto.dart
 lib/model/storing_condition.dart
 pubspec.yaml

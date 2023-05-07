@@ -14,9 +14,9 @@ class StoringCondition {
   /// Returns a new [StoringCondition] instance.
   StoringCondition({
     this.id,
-    this.temperature,
+    required this.temperature,
     this.humidity,
-    this.maxStoringHours,
+    required this.maxStoringHours,
   });
 
   ///
@@ -27,13 +27,7 @@ class StoringCondition {
   ///
   int? id;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  double? temperature;
+  double temperature;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -43,13 +37,7 @@ class StoringCondition {
   ///
   double? humidity;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  int? maxStoringHours;
+  int maxStoringHours;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is StoringCondition &&
@@ -62,9 +50,9 @@ class StoringCondition {
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (id == null ? 0 : id!.hashCode) +
-    (temperature == null ? 0 : temperature!.hashCode) +
+    (temperature.hashCode) +
     (humidity == null ? 0 : humidity!.hashCode) +
-    (maxStoringHours == null ? 0 : maxStoringHours!.hashCode);
+    (maxStoringHours.hashCode);
 
   @override
   String toString() => 'StoringCondition[id=$id, temperature=$temperature, humidity=$humidity, maxStoringHours=$maxStoringHours]';
@@ -76,21 +64,13 @@ class StoringCondition {
     } else {
       json[r'id'] = null;
     }
-    if (this.temperature != null) {
       json[r'temperature'] = this.temperature;
-    } else {
-      json[r'temperature'] = null;
-    }
     if (this.humidity != null) {
       json[r'humidity'] = this.humidity;
     } else {
       json[r'humidity'] = null;
     }
-    if (this.maxStoringHours != null) {
       json[r'maxStoringHours'] = this.maxStoringHours;
-    } else {
-      json[r'maxStoringHours'] = null;
-    }
     return json;
   }
 
@@ -114,9 +94,9 @@ class StoringCondition {
 
       return StoringCondition(
         id: mapValueOfType<int>(json, r'id'),
-        temperature: mapValueOfType<double>(json, r'temperature'),
+        temperature: mapValueOfType<double>(json, r'temperature')!,
         humidity: mapValueOfType<double>(json, r'humidity'),
-        maxStoringHours: mapValueOfType<int>(json, r'maxStoringHours'),
+        maxStoringHours: mapValueOfType<int>(json, r'maxStoringHours')!,
       );
     }
     return null;
@@ -166,6 +146,8 @@ class StoringCondition {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
+    'temperature',
+    'maxStoringHours',
   };
 }
 

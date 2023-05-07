@@ -9,16 +9,16 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV1MenuCategoryGet**](CategoryResourceApi.md#apiv1menucategoryget) | **GET** /api/v1/menu/category | 
-[**apiV1MenuCategoryIdDelete**](CategoryResourceApi.md#apiv1menucategoryiddelete) | **DELETE** /api/v1/menu/category/{id} | 
-[**apiV1MenuCategoryIdGet**](CategoryResourceApi.md#apiv1menucategoryidget) | **GET** /api/v1/menu/category/{id} | 
+[**addCategory**](CategoryResourceApi.md#addcategory) | **POST** /api/v1/menu/category | 
 [**apiV1MenuCategoryIdItemsGet**](CategoryResourceApi.md#apiv1menucategoryiditemsget) | **GET** /api/v1/menu/category/{id}/items | 
-[**apiV1MenuCategoryPost**](CategoryResourceApi.md#apiv1menucategorypost) | **POST** /api/v1/menu/category | 
-[**apiV1MenuCategoryPut**](CategoryResourceApi.md#apiv1menucategoryput) | **PUT** /api/v1/menu/category | 
+[**deleteCategoryById**](CategoryResourceApi.md#deletecategorybyid) | **DELETE** /api/v1/menu/category/{id} | 
+[**getCategoryById**](CategoryResourceApi.md#getcategorybyid) | **GET** /api/v1/menu/category/{id} | 
+[**listCategories**](CategoryResourceApi.md#listcategories) | **GET** /api/v1/menu/category | 
+[**modifyCategory**](CategoryResourceApi.md#modifycategory) | **PUT** /api/v1/menu/category/{id} | 
 
 
-# **apiV1MenuCategoryGet**
-> List<Category> apiV1MenuCategoryGet()
+# **addCategory**
+> Object addCategory(category)
 
 
 
@@ -27,49 +27,13 @@ Method | HTTP request | Description
 import 'package:menu_api/api.dart';
 
 final api_instance = CategoryResourceApi();
+final category = Category(); // Category | 
 
 try {
-    final result = api_instance.apiV1MenuCategoryGet();
+    final result = api_instance.addCategory(category);
     print(result);
 } catch (e) {
-    print('Exception when calling CategoryResourceApi->apiV1MenuCategoryGet: $e\n');
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**List<Category>**](Category.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **apiV1MenuCategoryIdDelete**
-> apiV1MenuCategoryIdDelete(id)
-
-
-
-### Example
-```dart
-import 'package:menu_api/api.dart';
-
-final api_instance = CategoryResourceApi();
-final id = 789; // int | 
-
-try {
-    api_instance.apiV1MenuCategoryIdDelete(id);
-} catch (e) {
-    print('Exception when calling CategoryResourceApi->apiV1MenuCategoryIdDelete: $e\n');
+    print('Exception when calling CategoryResourceApi->addCategory: $e\n');
 }
 ```
 
@@ -77,11 +41,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **int**|  | 
+ **category** | [**Category**](Category.md)|  | [optional] 
 
 ### Return type
 
-void (empty response body)
+[**Object**](Object.md)
 
 ### Authorization
 
@@ -89,48 +53,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **apiV1MenuCategoryIdGet**
-> Category apiV1MenuCategoryIdGet(id)
-
-
-
-### Example
-```dart
-import 'package:menu_api/api.dart';
-
-final api_instance = CategoryResourceApi();
-final id = 789; // int | 
-
-try {
-    final result = api_instance.apiV1MenuCategoryIdGet(id);
-    print(result);
-} catch (e) {
-    print('Exception when calling CategoryResourceApi->apiV1MenuCategoryIdGet: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **int**|  | 
-
-### Return type
-
-[**Category**](Category.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -176,8 +99,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **apiV1MenuCategoryPost**
-> Object apiV1MenuCategoryPost(category)
+# **deleteCategoryById**
+> deleteCategoryById(id)
 
 
 
@@ -186,13 +109,12 @@ No authorization required
 import 'package:menu_api/api.dart';
 
 final api_instance = CategoryResourceApi();
-final category = Category(); // Category | 
+final id = 789; // int | 
 
 try {
-    final result = api_instance.apiV1MenuCategoryPost(category);
-    print(result);
+    api_instance.deleteCategoryById(id);
 } catch (e) {
-    print('Exception when calling CategoryResourceApi->apiV1MenuCategoryPost: $e\n');
+    print('Exception when calling CategoryResourceApi->deleteCategoryById: $e\n');
 }
 ```
 
@@ -200,11 +122,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **category** | [**Category**](Category.md)|  | [optional] 
+ **id** | **int**|  | 
 
 ### Return type
 
-[**Object**](Object.md)
+void (empty response body)
 
 ### Authorization
 
@@ -212,13 +134,13 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **apiV1MenuCategoryPut**
-> Object apiV1MenuCategoryPut(category)
+# **getCategoryById**
+> Category getCategoryById(id)
 
 
 
@@ -227,13 +149,13 @@ No authorization required
 import 'package:menu_api/api.dart';
 
 final api_instance = CategoryResourceApi();
-final category = Category(); // Category | 
+final id = 789; // int | 
 
 try {
-    final result = api_instance.apiV1MenuCategoryPut(category);
+    final result = api_instance.getCategoryById(id);
     print(result);
 } catch (e) {
-    print('Exception when calling CategoryResourceApi->apiV1MenuCategoryPut: $e\n');
+    print('Exception when calling CategoryResourceApi->getCategoryById: $e\n');
 }
 ```
 
@@ -241,6 +163,86 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**Category**](Category.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **listCategories**
+> List<Category> listCategories()
+
+
+
+### Example
+```dart
+import 'package:menu_api/api.dart';
+
+final api_instance = CategoryResourceApi();
+
+try {
+    final result = api_instance.listCategories();
+    print(result);
+} catch (e) {
+    print('Exception when calling CategoryResourceApi->listCategories: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**List<Category>**](Category.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **modifyCategory**
+> Object modifyCategory(id, category)
+
+
+
+### Example
+```dart
+import 'package:menu_api/api.dart';
+
+final api_instance = CategoryResourceApi();
+final id = 789; // int | 
+final category = Category(); // Category | 
+
+try {
+    final result = api_instance.modifyCategory(id, category);
+    print(result);
+} catch (e) {
+    print('Exception when calling CategoryResourceApi->modifyCategory: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
  **category** | [**Category**](Category.md)|  | [optional] 
 
 ### Return type

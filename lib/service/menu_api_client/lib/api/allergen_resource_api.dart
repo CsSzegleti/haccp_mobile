@@ -16,24 +16,27 @@ class AllergenResourceApi {
 
   final ApiClient apiClient;
 
-  /// Performs an HTTP 'GET /api/v1/menu/allergen' operation and returns the [Response].
-  Future<Response> apiV1MenuAllergenGetWithHttpInfo() async {
+  /// Performs an HTTP 'POST /api/v1/menu/allergen' operation and returns the [Response].
+  /// Parameters:
+  ///
+  /// * [Allergen] allergen:
+  Future<Response> addAllergenWithHttpInfo({ Allergen? allergen, }) async {
     // ignore: prefer_const_declarations
     final path = r'/api/v1/menu/allergen';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = allergen;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
       path,
-      'GET',
+      'POST',
       queryParams,
       postBody,
       headerParams,
@@ -42,8 +45,11 @@ class AllergenResourceApi {
     );
   }
 
-  Future<List<Allergen>?> apiV1MenuAllergenGet() async {
-    final response = await apiV1MenuAllergenGetWithHttpInfo();
+  /// Parameters:
+  ///
+  /// * [Allergen] allergen:
+  Future<Object?> addAllergen({ Allergen? allergen, }) async {
+    final response = await addAllergenWithHttpInfo( allergen: allergen, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -51,11 +57,8 @@ class AllergenResourceApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      final responseBody = await _decodeBodyBytes(response);
-      return (await apiClient.deserializeAsync(responseBody, 'List<Allergen>') as List)
-        .cast<Allergen>()
-        .toList();
-
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+    
     }
     return null;
   }
@@ -64,7 +67,7 @@ class AllergenResourceApi {
   /// Parameters:
   ///
   /// * [int] id (required):
-  Future<Response> apiV1MenuAllergenIdDeleteWithHttpInfo(int id,) async {
+  Future<Response> deleteAllergenByIdWithHttpInfo(int id,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/v1/menu/allergen/{id}'
       .replaceAll('{id}', id.toString());
@@ -93,8 +96,8 @@ class AllergenResourceApi {
   /// Parameters:
   ///
   /// * [int] id (required):
-  Future<void> apiV1MenuAllergenIdDelete(int id,) async {
-    final response = await apiV1MenuAllergenIdDeleteWithHttpInfo(id,);
+  Future<void> deleteAllergenById(int id,) async {
+    final response = await deleteAllergenByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -104,7 +107,7 @@ class AllergenResourceApi {
   /// Parameters:
   ///
   /// * [int] id (required):
-  Future<Response> apiV1MenuAllergenIdGetWithHttpInfo(int id,) async {
+  Future<Response> getAllergenByIdWithHttpInfo(int id,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/v1/menu/allergen/{id}'
       .replaceAll('{id}', id.toString());
@@ -133,8 +136,8 @@ class AllergenResourceApi {
   /// Parameters:
   ///
   /// * [int] id (required):
-  Future<Allergen?> apiV1MenuAllergenIdGet(int id,) async {
-    final response = await apiV1MenuAllergenIdGetWithHttpInfo(id,);
+  Future<Allergen?> getAllergenById(int id,) async {
+    final response = await getAllergenByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -148,27 +151,24 @@ class AllergenResourceApi {
     return null;
   }
 
-  /// Performs an HTTP 'POST /api/v1/menu/allergen' operation and returns the [Response].
-  /// Parameters:
-  ///
-  /// * [Allergen] allergen:
-  Future<Response> apiV1MenuAllergenPostWithHttpInfo({ Allergen? allergen, }) async {
+  /// Performs an HTTP 'GET /api/v1/menu/allergen' operation and returns the [Response].
+  Future<Response> listAllergensWithHttpInfo() async {
     // ignore: prefer_const_declarations
     final path = r'/api/v1/menu/allergen';
 
     // ignore: prefer_final_locals
-    Object? postBody = allergen;
+    Object? postBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json'];
+    const contentTypes = <String>[];
 
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'GET',
       queryParams,
       postBody,
       headerParams,
@@ -177,11 +177,8 @@ class AllergenResourceApi {
     );
   }
 
-  /// Parameters:
-  ///
-  /// * [Allergen] allergen:
-  Future<Object?> apiV1MenuAllergenPost({ Allergen? allergen, }) async {
-    final response = await apiV1MenuAllergenPostWithHttpInfo( allergen: allergen, );
+  Future<List<Allergen>?> listAllergens() async {
+    final response = await listAllergensWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -189,19 +186,25 @@ class AllergenResourceApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
-    
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<Allergen>') as List)
+        .cast<Allergen>()
+        .toList();
+
     }
     return null;
   }
 
-  /// Performs an HTTP 'PUT /api/v1/menu/allergen' operation and returns the [Response].
+  /// Performs an HTTP 'PUT /api/v1/menu/allergen/{id}' operation and returns the [Response].
   /// Parameters:
   ///
+  /// * [int] id (required):
+  ///
   /// * [Allergen] allergen:
-  Future<Response> apiV1MenuAllergenPutWithHttpInfo({ Allergen? allergen, }) async {
+  Future<Response> modifyAllergenWithHttpInfo(int id, { Allergen? allergen, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/api/v1/menu/allergen';
+    final path = r'/api/v1/menu/allergen/{id}'
+      .replaceAll('{id}', id.toString());
 
     // ignore: prefer_final_locals
     Object? postBody = allergen;
@@ -226,9 +229,11 @@ class AllergenResourceApi {
 
   /// Parameters:
   ///
+  /// * [int] id (required):
+  ///
   /// * [Allergen] allergen:
-  Future<Object?> apiV1MenuAllergenPut({ Allergen? allergen, }) async {
-    final response = await apiV1MenuAllergenPutWithHttpInfo( allergen: allergen, );
+  Future<Object?> modifyAllergen(int id, { Allergen? allergen, }) async {
+    final response = await modifyAllergenWithHttpInfo(id,  allergen: allergen, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
