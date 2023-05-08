@@ -27,8 +27,8 @@ class _CategoryPageState extends State<CategoryPage> {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(snapshot.data![index].name!.isNotEmpty
-                      ? snapshot.data![index].name!
+                  title: Text(snapshot.data![index].name.isNotEmpty
+                      ? snapshot.data![index].name
                       : "No name"),
                   // subtitle: Text(snapshot.data![index].name.isEmpty ? "No description"),
                 );
