@@ -128,7 +128,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
                 items: _categories.map((item) {
                   return DropdownMenuItem<Category>(
                     value: item,
-                    child: Text(item.name!),
+                    child: Text(item.name),
                   );
                 }).toList(),
                 onChanged: (value) {
@@ -144,7 +144,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
                 border: OutlineInputBorder(),
               ),
               options: _allergens,
-              menuItembuilder: (option) => Text(option.longName!),
+              menuItembuilder: (option) => Text(option.longName),
               selectedValues: _selectedAllergens,
               onChanged: (List<Allergen> allergens) {
                 setState(() {
