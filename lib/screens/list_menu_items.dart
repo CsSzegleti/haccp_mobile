@@ -38,9 +38,9 @@ class _MenuPageState extends State<MenuPage> {
       body: Column(
         children: [
           Expanded(
-              child: ListView.separated(
+              child: ListView.builder(
             shrinkWrap: true,
-            separatorBuilder: (context, index) => const Divider(),
+            // separatorBuilder: (context, index) => const Divider(),
             itemCount: _categories.length,
             itemBuilder: (context, index) {
               return Column(
@@ -58,8 +58,9 @@ class _MenuPageState extends State<MenuPage> {
                       physics: ClampingScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, itemIdx) {
-                        return Container(
-                            margin: const EdgeInsets.only(left: 32, bottom: 16),
+                        return Card(
+                            margin: const EdgeInsets.only(
+                                left: 16, bottom: 16, right: 16),
                             child: ListTile(
                               title: Text(
                                   _categories[index].items[itemIdx].name,
