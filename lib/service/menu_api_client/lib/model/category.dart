@@ -15,6 +15,7 @@ class Category {
   Category({
     this.id,
     required this.name,
+    this.items = const [],
     required this.menuCardPos,
   });
 
@@ -28,12 +29,15 @@ class Category {
 
   String name;
 
+  List<MenuItem> items;
+
   int menuCardPos;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Category &&
      other.id == id &&
      other.name == name &&
+     other.items == items &&
      other.menuCardPos == menuCardPos;
 
   @override
@@ -41,10 +45,11 @@ class Category {
     // ignore: unnecessary_parenthesis
     (id == null ? 0 : id!.hashCode) +
     (name.hashCode) +
+    (items.hashCode) +
     (menuCardPos.hashCode);
 
   @override
-  String toString() => 'Category[id=$id, name=$name, menuCardPos=$menuCardPos]';
+  String toString() => 'Category[id=$id, name=$name, items=$items, menuCardPos=$menuCardPos]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -54,6 +59,7 @@ class Category {
       json[r'id'] = null;
     }
       json[r'name'] = this.name;
+      json[r'items'] = this.items;
       json[r'menuCardPos'] = this.menuCardPos;
     return json;
   }
@@ -79,6 +85,7 @@ class Category {
       return Category(
         id: mapValueOfType<int>(json, r'id'),
         name: mapValueOfType<String>(json, r'name')!,
+        items: MenuItem.listFromJson(json[r'items']) ?? const [],
         menuCardPos: mapValueOfType<int>(json, r'menuCardPos')!,
       );
     }

@@ -15,6 +15,7 @@ class InventoryItem {
   InventoryItem({
     this.id,
     this.menuItemId,
+    this.foodStorage,
     this.createdDate,
   });
 
@@ -40,12 +41,21 @@ class InventoryItem {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
+  FoodStorage? foodStorage;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
   DateTime? createdDate;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is InventoryItem &&
      other.id == id &&
      other.menuItemId == menuItemId &&
+     other.foodStorage == foodStorage &&
      other.createdDate == createdDate;
 
   @override
@@ -53,10 +63,11 @@ class InventoryItem {
     // ignore: unnecessary_parenthesis
     (id == null ? 0 : id!.hashCode) +
     (menuItemId == null ? 0 : menuItemId!.hashCode) +
+    (foodStorage == null ? 0 : foodStorage!.hashCode) +
     (createdDate == null ? 0 : createdDate!.hashCode);
 
   @override
-  String toString() => 'InventoryItem[id=$id, menuItemId=$menuItemId, createdDate=$createdDate]';
+  String toString() => 'InventoryItem[id=$id, menuItemId=$menuItemId, foodStorage=$foodStorage, createdDate=$createdDate]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -69,6 +80,11 @@ class InventoryItem {
       json[r'menuItemId'] = this.menuItemId;
     } else {
       json[r'menuItemId'] = null;
+    }
+    if (this.foodStorage != null) {
+      json[r'foodStorage'] = this.foodStorage;
+    } else {
+      json[r'foodStorage'] = null;
     }
     if (this.createdDate != null) {
       json[r'createdDate'] = this.createdDate!.toUtc().toIso8601String();
@@ -99,6 +115,7 @@ class InventoryItem {
       return InventoryItem(
         id: mapValueOfType<String>(json, r'id'),
         menuItemId: mapValueOfType<int>(json, r'menuItemId'),
+        foodStorage: FoodStorage.fromJson(json[r'foodStorage']),
         createdDate: mapDateTime(json, r'createdDate', ''),
       );
     }

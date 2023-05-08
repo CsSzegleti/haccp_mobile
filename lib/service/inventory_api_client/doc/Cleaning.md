@@ -9,6 +9,7 @@ import 'package:inventory_api/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | [optional] 
+**foodStorage** | [**FoodStorage**](FoodStorage.md) |  | [optional] 
 **cleanedBy** | **String** |  | [optional] 
 **createdDate** | [**DateTime**](DateTime.md) |  | [optional] 
 

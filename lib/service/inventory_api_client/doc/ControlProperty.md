@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | [optional] 
 **value** | **double** |  | [optional] 
+**controlPoint** | [**ControlPoint**](ControlPoint.md) |  | [optional] 
 **addedBy** | **String** |  | [optional] 
 **createdDate** | [**DateTime**](DateTime.md) |  | [optional] 
 

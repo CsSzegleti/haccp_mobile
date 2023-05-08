@@ -17,6 +17,8 @@ class FoodStorage {
     this.name,
     this.description,
     this.createdDate,
+    this.cleanings = const [],
+    this.controlPoints = const [],
     this.items = const [],
   });
 
@@ -52,6 +54,10 @@ class FoodStorage {
   ///
   DateTime? createdDate;
 
+  List<Cleaning> cleanings;
+
+  List<ControlPoint> controlPoints;
+
   List<InventoryItem> items;
 
   @override
@@ -60,6 +66,8 @@ class FoodStorage {
      other.name == name &&
      other.description == description &&
      other.createdDate == createdDate &&
+     other.cleanings == cleanings &&
+     other.controlPoints == controlPoints &&
      other.items == items;
 
   @override
@@ -69,10 +77,12 @@ class FoodStorage {
     (name == null ? 0 : name!.hashCode) +
     (description == null ? 0 : description!.hashCode) +
     (createdDate == null ? 0 : createdDate!.hashCode) +
+    (cleanings.hashCode) +
+    (controlPoints.hashCode) +
     (items.hashCode);
 
   @override
-  String toString() => 'FoodStorage[id=$id, name=$name, description=$description, createdDate=$createdDate, items=$items]';
+  String toString() => 'FoodStorage[id=$id, name=$name, description=$description, createdDate=$createdDate, cleanings=$cleanings, controlPoints=$controlPoints, items=$items]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -96,6 +106,8 @@ class FoodStorage {
     } else {
       json[r'createdDate'] = null;
     }
+      json[r'cleanings'] = this.cleanings;
+      json[r'controlPoints'] = this.controlPoints;
       json[r'items'] = this.items;
     return json;
   }
@@ -123,6 +135,8 @@ class FoodStorage {
         name: mapValueOfType<String>(json, r'name'),
         description: mapValueOfType<String>(json, r'description'),
         createdDate: mapDateTime(json, r'createdDate', ''),
+        cleanings: Cleaning.listFromJson(json[r'cleanings']) ?? const [],
+        controlPoints: ControlPoint.listFromJson(json[r'controlPoints']) ?? const [],
         items: InventoryItem.listFromJson(json[r'items']) ?? const [],
       );
     }

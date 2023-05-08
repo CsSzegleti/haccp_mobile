@@ -15,6 +15,7 @@ class ControlProperty {
   ControlProperty({
     this.id,
     this.value,
+    this.controlPoint,
     this.addedBy,
     this.createdDate,
   });
@@ -41,6 +42,14 @@ class ControlProperty {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
+  ControlPoint? controlPoint;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
   String? addedBy;
 
   ///
@@ -55,6 +64,7 @@ class ControlProperty {
   bool operator ==(Object other) => identical(this, other) || other is ControlProperty &&
      other.id == id &&
      other.value == value &&
+     other.controlPoint == controlPoint &&
      other.addedBy == addedBy &&
      other.createdDate == createdDate;
 
@@ -63,11 +73,12 @@ class ControlProperty {
     // ignore: unnecessary_parenthesis
     (id == null ? 0 : id!.hashCode) +
     (value == null ? 0 : value!.hashCode) +
+    (controlPoint == null ? 0 : controlPoint!.hashCode) +
     (addedBy == null ? 0 : addedBy!.hashCode) +
     (createdDate == null ? 0 : createdDate!.hashCode);
 
   @override
-  String toString() => 'ControlProperty[id=$id, value=$value, addedBy=$addedBy, createdDate=$createdDate]';
+  String toString() => 'ControlProperty[id=$id, value=$value, controlPoint=$controlPoint, addedBy=$addedBy, createdDate=$createdDate]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -80,6 +91,11 @@ class ControlProperty {
       json[r'value'] = this.value;
     } else {
       json[r'value'] = null;
+    }
+    if (this.controlPoint != null) {
+      json[r'controlPoint'] = this.controlPoint;
+    } else {
+      json[r'controlPoint'] = null;
     }
     if (this.addedBy != null) {
       json[r'addedBy'] = this.addedBy;
@@ -115,6 +131,7 @@ class ControlProperty {
       return ControlProperty(
         id: mapValueOfType<String>(json, r'id'),
         value: mapValueOfType<double>(json, r'value'),
+        controlPoint: ControlPoint.fromJson(json[r'controlPoint']),
         addedBy: mapValueOfType<String>(json, r'addedBy'),
         createdDate: mapDateTime(json, r'createdDate', ''),
       );

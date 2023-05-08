@@ -14,6 +14,7 @@ class Cleaning {
   /// Returns a new [Cleaning] instance.
   Cleaning({
     this.id,
+    this.foodStorage,
     this.cleanedBy,
     this.createdDate,
   });
@@ -25,6 +26,14 @@ class Cleaning {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? id;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  FoodStorage? foodStorage;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -45,6 +54,7 @@ class Cleaning {
   @override
   bool operator ==(Object other) => identical(this, other) || other is Cleaning &&
      other.id == id &&
+     other.foodStorage == foodStorage &&
      other.cleanedBy == cleanedBy &&
      other.createdDate == createdDate;
 
@@ -52,11 +62,12 @@ class Cleaning {
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (id == null ? 0 : id!.hashCode) +
+    (foodStorage == null ? 0 : foodStorage!.hashCode) +
     (cleanedBy == null ? 0 : cleanedBy!.hashCode) +
     (createdDate == null ? 0 : createdDate!.hashCode);
 
   @override
-  String toString() => 'Cleaning[id=$id, cleanedBy=$cleanedBy, createdDate=$createdDate]';
+  String toString() => 'Cleaning[id=$id, foodStorage=$foodStorage, cleanedBy=$cleanedBy, createdDate=$createdDate]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -64,6 +75,11 @@ class Cleaning {
       json[r'id'] = this.id;
     } else {
       json[r'id'] = null;
+    }
+    if (this.foodStorage != null) {
+      json[r'foodStorage'] = this.foodStorage;
+    } else {
+      json[r'foodStorage'] = null;
     }
     if (this.cleanedBy != null) {
       json[r'cleanedBy'] = this.cleanedBy;
@@ -98,6 +114,7 @@ class Cleaning {
 
       return Cleaning(
         id: mapValueOfType<String>(json, r'id'),
+        foodStorage: FoodStorage.fromJson(json[r'foodStorage']),
         cleanedBy: mapValueOfType<String>(json, r'cleanedBy'),
         createdDate: mapDateTime(json, r'createdDate', ''),
       );

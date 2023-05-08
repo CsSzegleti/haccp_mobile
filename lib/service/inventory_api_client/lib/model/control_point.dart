@@ -14,8 +14,9 @@ class ControlPoint {
   /// Returns a new [ControlPoint] instance.
   ControlPoint({
     this.id,
-    this.name,
+    required this.name,
     this.description,
+    this.foodStorage,
     this.properties = const [],
     this.limitType,
     this.threshold,
@@ -30,13 +31,7 @@ class ControlPoint {
   ///
   String? id;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? name;
+  String name;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -45,6 +40,14 @@ class ControlPoint {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? description;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  FoodStorage? foodStorage;
 
   List<ControlProperty> properties;
 
@@ -77,6 +80,7 @@ class ControlPoint {
      other.id == id &&
      other.name == name &&
      other.description == description &&
+     other.foodStorage == foodStorage &&
      other.properties == properties &&
      other.limitType == limitType &&
      other.threshold == threshold &&
@@ -86,15 +90,16 @@ class ControlPoint {
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (id == null ? 0 : id!.hashCode) +
-    (name == null ? 0 : name!.hashCode) +
+    (name.hashCode) +
     (description == null ? 0 : description!.hashCode) +
+    (foodStorage == null ? 0 : foodStorage!.hashCode) +
     (properties.hashCode) +
     (limitType == null ? 0 : limitType!.hashCode) +
     (threshold == null ? 0 : threshold!.hashCode) +
     (createdDate == null ? 0 : createdDate!.hashCode);
 
   @override
-  String toString() => 'ControlPoint[id=$id, name=$name, description=$description, properties=$properties, limitType=$limitType, threshold=$threshold, createdDate=$createdDate]';
+  String toString() => 'ControlPoint[id=$id, name=$name, description=$description, foodStorage=$foodStorage, properties=$properties, limitType=$limitType, threshold=$threshold, createdDate=$createdDate]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -103,15 +108,16 @@ class ControlPoint {
     } else {
       json[r'id'] = null;
     }
-    if (this.name != null) {
       json[r'name'] = this.name;
-    } else {
-      json[r'name'] = null;
-    }
     if (this.description != null) {
       json[r'description'] = this.description;
     } else {
       json[r'description'] = null;
+    }
+    if (this.foodStorage != null) {
+      json[r'foodStorage'] = this.foodStorage;
+    } else {
+      json[r'foodStorage'] = null;
     }
       json[r'properties'] = this.properties;
     if (this.limitType != null) {
@@ -152,8 +158,9 @@ class ControlPoint {
 
       return ControlPoint(
         id: mapValueOfType<String>(json, r'id'),
-        name: mapValueOfType<String>(json, r'name'),
+        name: mapValueOfType<String>(json, r'name')!,
         description: mapValueOfType<String>(json, r'description'),
+        foodStorage: FoodStorage.fromJson(json[r'foodStorage']),
         properties: ControlProperty.listFromJson(json[r'properties']) ?? const [],
         limitType: LimitType.fromJson(json[r'limitType']),
         threshold: mapValueOfType<double>(json, r'threshold'),
@@ -207,6 +214,7 @@ class ControlPoint {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
+    'name',
   };
 }
 

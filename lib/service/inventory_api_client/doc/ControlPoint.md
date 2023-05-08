@@ -9,8 +9,9 @@ import 'package:inventory_api/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | [optional] 
-**name** | **String** |  | [optional] 
+**name** | **String** |  | 
 **description** | **String** |  | [optional] 
+**foodStorage** | [**FoodStorage**](FoodStorage.md) |  | [optional] 
 **properties** | [**List<ControlProperty>**](ControlProperty.md) |  | [optional] [default to const []]
 **limitType** | [**LimitType**](LimitType.md) |  | [optional] 
 **threshold** | **double** |  | [optional] 
