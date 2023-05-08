@@ -33,7 +33,7 @@ class _StorageFormState extends State<StorageForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Food Storage"),
+        title: const Text("Food Storage"),
       ),
       body: SingleChildScrollView(
           child: Form(
