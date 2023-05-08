@@ -504,6 +504,12 @@
           "name" : {
             "type" : "string"
           },
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/MenuItem"
+            }
+          },
           "menuCardPos" : {
             "format" : "int32",
             "type" : "integer"

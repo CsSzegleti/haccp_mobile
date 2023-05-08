@@ -882,6 +882,9 @@
           "id" : {
             "type" : "string"
           },
+          "foodStorage" : {
+            "$ref" : "#/components/schemas/FoodStorage"
+          },
           "cleanedBy" : {
             "type" : "string"
           },
@@ -892,6 +895,7 @@
         }
       },
       "ControlPoint" : {
+        "required" : [ "name" ],
         "type" : "object",
         "properties" : {
           "id" : {
@@ -902,6 +906,9 @@
           },
           "description" : {
             "type" : "string"
+          },
+          "foodStorage" : {
+            "$ref" : "#/components/schemas/FoodStorage"
           },
           "properties" : {
             "type" : "array",
@@ -932,6 +939,9 @@
             "format" : "double",
             "type" : "number"
           },
+          "controlPoint" : {
+            "$ref" : "#/components/schemas/ControlPoint"
+          },
           "addedBy" : {
             "type" : "string"
           },
@@ -957,6 +967,18 @@
             "format" : "date-time",
             "type" : "string"
           },
+          "cleanings" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Cleaning"
+            }
+          },
+          "controlPoints" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ControlPoint"
+            }
+          },
           "items" : {
             "type" : "array",
             "items" : {
@@ -974,6 +996,9 @@
           "menuItemId" : {
             "format" : "int64",
             "type" : "integer"
+          },
+          "foodStorage" : {
+            "$ref" : "#/components/schemas/FoodStorage"
           },
           "createdDate" : {
             "format" : "date-time",
