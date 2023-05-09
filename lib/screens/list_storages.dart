@@ -47,8 +47,8 @@ class _StorageListPageState extends State<StorageListPage> {
                             MaterialPageRoute(
                                 builder: (context) => StorageDetail(
                                     foodStorage: _foodStorages[index])))
-                        .then((value) {
-                      setState(() {});
+                        .then((_) async {
+                      await _getFoodStorages();
                     });
                   },
                 ));
