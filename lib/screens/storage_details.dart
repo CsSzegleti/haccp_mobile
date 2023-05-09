@@ -43,7 +43,9 @@ class _StorageDetailState extends State<StorageDetail> {
         body: (SingleChildScrollView(
             child: Column(
           children: [
-            const Text("Control Points"),
+            const SizedBox(height: 16),
+            Text("Control Points",
+                style: Theme.of(context).textTheme.headlineSmall),
             ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -54,21 +56,25 @@ class _StorageDetailState extends State<StorageDetail> {
                     child: ListTile(
                         isThreeLine: true,
                         title: Text(_foodStorage.controlPoints[index].name),
-                        subtitle: Column(children: [
-                          Text(_foodStorage.controlPoints[index].properties
-                                      .isEmpty ||
-                                  _foodStorage.controlPoints[index].properties
-                                          .last.value ==
-                                      null
-                              ? "No value"
-                              : _foodStorage
-                                  .controlPoints[index].properties.last.value
-                                  .toString()),
-                          Text(
-                              "${_foodStorage.controlPoints[index].limitType} - ${_foodStorage.controlPoints[index].threshold}")
-                        ])));
+                        subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(_foodStorage.controlPoints[index].properties
+                                          .isEmpty ||
+                                      _foodStorage.controlPoints[index]
+                                              .properties.last.value ==
+                                          null
+                                  ? "No value"
+                                  : _foodStorage.controlPoints[index].properties
+                                      .last.value
+                                      .toString()),
+                              Text(
+                                  "${_foodStorage.controlPoints[index].limitType} - ${_foodStorage.controlPoints[index].threshold}")
+                            ])));
               },
             ),
+            const SizedBox(height: 16),
+            Text("Cleanings", style: Theme.of(context).textTheme.headlineSmall),
             Card(
               margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
               child: ListTile(
@@ -79,7 +85,9 @@ class _StorageDetailState extends State<StorageDetail> {
                     : _foodStorage.cleanings.last.createdDate.toString()),
               ),
             ),
-            const Text("Menu Items"),
+            const SizedBox(height: 16),
+            Text("Menu items",
+                style: Theme.of(context).textTheme.headlineSmall),
             ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: _menuItems.length,
