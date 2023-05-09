@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:haccp_mobile/service/inventory_api_client/lib/api.dart';
 import 'package:haccp_mobile/service/menu_api_client/lib/api.dart' as menu_api;
+import 'package:haccp_mobile/widgets/number_scroller.dart';
 
 class StorageDetail extends StatefulWidget {
   final FoodStorage foodStorage;
@@ -84,12 +85,26 @@ class _StorageDetailState extends State<StorageDetail> {
                       child: ListTile(
                           isThreeLine: true,
                           title: Text(_menuItems[index].name),
-                          subtitle: Column(children: [
-                            Text(_menuItems[index].description),
-                            Text(
-                                "Pieces: ${_menuItemsPieces[_menuItems[index].id!] ?? 0}")
-                          ])));
+                          subtitle: NumberScroller(
+                              initialValue:
+                                  _menuItemsPieces[_menuItems[index].id] ?? 0,
+                              minValue: 0,
+                              maxValue: 999999999,
+                              onChanged: (value) {
+                                _menuItemsPiecesToModify[
+                                    _menuItems[index]
+                                        .id!] = value -
+                                    _menuItemsPieces[_menuItems[index].id!]!;
+                              },
+                              incrementBy: 1)));
                 }),
+            const SizedBox(height: 16),
+            Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: _saveMenuItems,
+                  child: Text('Save'),
+                )),
           ],
         ))));
   }
@@ -109,10 +124,10 @@ class _StorageDetailState extends State<StorageDetail> {
         key: (item) => item.id as int, value: (item) => 0);
 
     for (final item in _foodStorage.items) {
-      if (itemsPieces.containsKey(item.id)) {
-        itemsPieces[int.parse(item.id!)] = itemsPieces[item.id!]! + 1;
+      if (itemsPieces.containsKey(item.menuItemId)) {
+        itemsPieces[item.menuItemId!] = itemsPieces[item.menuItemId!]! + 1;
       } else {
-        itemsPieces[int.parse(item.id!)] = 1;
+        itemsPieces[item.menuItemId!] = 1;
       }
     }
 
@@ -121,5 +136,23 @@ class _StorageDetailState extends State<StorageDetail> {
       _menuItemsPieces = itemsPieces;
       _menuItemsPiecesToModify = itemsPiecesToModify;
     });
+  }
+
+  _saveMenuItems() {
+    for (final item in _menuItemsPiecesToModify.entries) {
+      final inventoryMoveItem = InventoryItemToMoveDto(
+          menuItemId: item.key, quantity: item.value.abs());
+      if (item.value > 0) {
+        FoodStorageApi(ApiClient(basePath: "http://devtenant1:8080"))
+            .addMenuItemToFoodStorage(_foodStorage.id!,
+                inventoryItemToMoveDto: inventoryMoveItem);
+      } else if (item.value < 0) {
+        for (var i = 0; i < item.value.abs(); i++) {
+          FoodStorageApi(ApiClient(basePath: "http://devtenant1:8080"))
+              .removeMenuItemFromFoodStorage(_foodStorage.id!,
+                  inventoryItemToMoveDto: inventoryMoveItem);
+        }
+      }
+    }
   }
 }
