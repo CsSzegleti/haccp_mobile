@@ -61,7 +61,7 @@ class _NumberScrollerState extends State<NumberScroller> {
         SizedBox(width: 24),
         Text(
           '$_value',
-          style: TextStyle(fontSize: 24),
+          style: TextStyle(fontSize: 18),
         ),
         SizedBox(width: 24),
         IconButton(
