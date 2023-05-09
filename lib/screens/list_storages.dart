@@ -43,10 +43,13 @@ class _StorageListPageState extends State<StorageListPage> {
                   subtitle: Text(_foodStorages[index].description!),
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => StorageDetail(
-                                foodStorage: _foodStorages[index])));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StorageDetail(
+                                    foodStorage: _foodStorages[index])))
+                        .then((value) {
+                      setState(() {});
+                    });
                   },
                 ));
           },

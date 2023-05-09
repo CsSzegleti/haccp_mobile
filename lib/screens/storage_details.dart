@@ -33,6 +33,12 @@ class _StorageDetailState extends State<StorageDetail> {
     return Scaffold(
         appBar: AppBar(
           title: Text(_foodStorage.name!),
+          leading: GestureDetector(
+            child: const Icon(Icons.arrow_back),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
         body: (SingleChildScrollView(
             child: Column(
@@ -99,12 +105,16 @@ class _StorageDetailState extends State<StorageDetail> {
                               incrementBy: 1)));
                 }),
             const SizedBox(height: 16),
-            Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ElevatedButton(
-                  onPressed: _saveMenuItems,
-                  child: Text('Save'),
-                )),
+            Row(children: [
+              Expanded(
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 16, right: 16, bottom: 16),
+                      child: ElevatedButton(
+                        onPressed: _saveMenuItems,
+                        child: Text('Save'),
+                      )))
+            ]),
           ],
         ))));
   }
