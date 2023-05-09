@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:haccp_mobile/screens/list_menu_items.dart';
+import 'package:haccp_mobile/screens/list_storages.dart';
 import 'package:haccp_mobile/screens/menu_item_form.dart';
 import 'package:haccp_mobile/screens/cateory_list_page.dart';
+import 'package:haccp_mobile/screens/storage_details.dart';
 
 void main() {
   runApp(const MyApp());
@@ -79,13 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: const MenuPage(),
-    );
+    return const StorageListPage();
   }
 }
