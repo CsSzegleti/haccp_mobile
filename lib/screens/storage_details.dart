@@ -105,7 +105,7 @@ class _StorageDetailState extends State<StorageDetail> {
 
     final itemsPieces = HashMap.fromIterable(items,
         key: (item) => item.id as int, value: (item) => 0);
-    final itemsPiecesToModify = HashMap.fromIterable(items ?? [],
+    final itemsPiecesToModify = HashMap.fromIterable(items,
         key: (item) => item.id as int, value: (item) => 0);
 
     for (final item in _foodStorage.items) {
