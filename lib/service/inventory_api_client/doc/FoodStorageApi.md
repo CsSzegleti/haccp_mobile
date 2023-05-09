@@ -183,7 +183,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **listAllFoodStorages**
-> FoodStorage listAllFoodStorages()
+> List<FoodStorage> listAllFoodStorages()
 
 List all storages.
 
@@ -206,7 +206,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**FoodStorage**](FoodStorage.md)
+[**List<FoodStorage>**](FoodStorage.md)
 
 ### Authorization
 

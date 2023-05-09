@@ -149,7 +149,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **listAllControlProperty**
-> ControlProperty listAllControlProperty(ccpId, storageId)
+> List<ControlProperty> listAllControlProperty(ccpId, storageId)
 
 List all properties for the critical control point.
 
@@ -178,7 +178,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ControlProperty**](ControlProperty.md)
+[**List<ControlProperty>**](ControlProperty.md)
 
 ### Authorization
 

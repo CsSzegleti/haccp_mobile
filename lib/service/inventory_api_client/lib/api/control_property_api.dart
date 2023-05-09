@@ -242,7 +242,7 @@ class ControlPropertyApi {
   /// * [String] ccpId (required):
   ///
   /// * [String] storageId (required):
-  Future<ControlProperty?> listAllControlProperty(String ccpId, String storageId,) async {
+  Future<List<ControlProperty>?> listAllControlProperty(String ccpId, String storageId,) async {
     final response = await listAllControlPropertyWithHttpInfo(ccpId, storageId,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -251,8 +251,11 @@ class ControlPropertyApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ControlProperty',) as ControlProperty;
-    
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<ControlProperty>') as List)
+        .cast<ControlProperty>()
+        .toList();
+
     }
     return null;
   }

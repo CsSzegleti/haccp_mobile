@@ -169,7 +169,7 @@ class ControlPointApi {
   /// Parameters:
   ///
   /// * [String] storageId (required):
-  Future<ControlPoint?> listAllControlPoints(String storageId,) async {
+  Future<List<ControlPoint>?> listAllControlPoints(String storageId,) async {
     final response = await listAllControlPointsWithHttpInfo(storageId,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -178,8 +178,11 @@ class ControlPointApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ControlPoint',) as ControlPoint;
-    
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<ControlPoint>') as List)
+        .cast<ControlPoint>()
+        .toList();
+
     }
     return null;
   }

@@ -244,7 +244,7 @@ class FoodStorageApi {
   }
 
   /// List all storages.
-  Future<FoodStorage?> listAllFoodStorages() async {
+  Future<List<FoodStorage>?> listAllFoodStorages() async {
     final response = await listAllFoodStoragesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -253,8 +253,11 @@ class FoodStorageApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'FoodStorage',) as FoodStorage;
-    
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<FoodStorage>') as List)
+        .cast<FoodStorage>()
+        .toList();
+
     }
     return null;
   }
