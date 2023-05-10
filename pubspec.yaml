@@ -1,5 +1,5 @@
 name: haccp_mobile
-description: A new Flutter project.
+description: HACCP mobile app.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -34,18 +34,13 @@ dependencies:
     path: lib/service/menu_api_client
   inventory_api:
     path: lib/service/inventory_api_client
-  multi_select_flutter: ^4.1.3
   multiselect: ^0.1.0
-  fluttertoast: ^8.2.1
-  keycloak_flutter: ^0.0.20
-  openid_client: ^0.4.7
   provider: ^6.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  multiselect_formfield: ^0.1.7
 
 dev_dependencies:
   flutter_test:
