@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haccp_mobile/service/api_client.dart';
 import 'package:haccp_mobile/service/menu_api_client/lib/api.dart';
 import 'package:multiselect/multiselect.dart';
 
@@ -15,8 +16,6 @@ class _MenuItemFormState extends State<MenuItemForm> {
   final _formKey = GlobalKey<FormState>();
 
   late MenuItem _menuItem;
-
-  Future<Object?>? _futureResponse;
 
   Category? _selectedCategory;
   List<Allergen> _selectedAllergens = [];
@@ -261,13 +260,24 @@ class _MenuItemFormState extends State<MenuItemForm> {
   void _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      if (_menuItem.id != null) {
-        await MenuItemResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
-            .updateMenuItem(_menuItem.id!, menuItem: _menuItem);
-      } else {
-        await MenuItemResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
-            .addMenuItem(menuItem: _menuItem);
+      try {
+        if (_menuItem.id != null) {
+          await MenuItemResourceApi((await MenuApiClient.instance).apiClient)
+              .updateMenuItem(_menuItem.id!, menuItem: _menuItem);
+        } else {
+          await MenuItemResourceApi((await MenuApiClient.instance).apiClient)
+              .addMenuItem(menuItem: _menuItem);
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Colors.red,
+            content: Text("There has been an error")));
+        return;
       }
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.green, content: Text("Success")));
+      return;
 
       Navigator.pop(context);
     }
