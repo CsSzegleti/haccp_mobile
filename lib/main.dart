@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:haccp_mobile/screens/list_menu_items.dart';
 import 'package:haccp_mobile/screens/list_storages.dart';
+import 'package:haccp_mobile/screens/loging_page.dart';
 import 'package:haccp_mobile/screens/menu_item_form.dart';
 import 'package:haccp_mobile/screens/cateory_list_page.dart';
-import 'package:haccp_mobile/screens/storage_details.dart';
+import 'package:haccp_mobile/service/keycloak_service/keycloak_service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -75,12 +75,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return const StorageListPage();
+    return LoginPage();
   }
 }

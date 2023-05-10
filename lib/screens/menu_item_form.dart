@@ -265,7 +265,6 @@ class _MenuItemFormState extends State<MenuItemForm> {
   void _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print(_menuItem);
       if (_menuItem.id != null) {
         await MenuItemResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
             .updateMenuItem(_menuItem.id!, menuItem: _menuItem);

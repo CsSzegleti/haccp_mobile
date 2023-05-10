@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:haccp_mobile/screens/storage_details.dart';
+import 'package:haccp_mobile/service/api_client.dart';
 import 'package:haccp_mobile/service/inventory_api_client/lib/api.dart';
+import 'package:haccp_mobile/service/keycloak_service/keycloak_service.dart';
 
 class StorageListPage extends StatefulWidget {
   const StorageListPage({Key? key}) : super(key: key);
@@ -19,9 +21,8 @@ class _StorageListPageState extends State<StorageListPage> {
   }
 
   Future<void> _getFoodStorages() async {
-    final items =
-        await FoodStorageApi(ApiClient(basePath: "http://devtenant1:8080"))
-            .listAllFoodStorages();
+    final items = await FoodStorageApi(InventoryApiClient.instance.apiClient)
+        .listAllFoodStorages();
     setState(() {
       _foodStorages = items ?? [];
     });
