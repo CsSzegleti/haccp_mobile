@@ -21,12 +21,12 @@ class KeycloakService {
     return await authenticate(_credentials);
   }
 
-  Future<Token> getToken() async {
+  Future<String> getToken() async {
     if (_authenticated && !_token.isExpired) {
-      return _token;
+      return _token.accessToken;
     } else if (_authenticated && _token.isExpired) {
       if (await refreshToken() == 200) {
-        return _token;
+        return _token.accessToken;
       } else {
         throw Exception('Failed to refresh token');
       }

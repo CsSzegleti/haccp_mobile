@@ -13,8 +13,7 @@ class MenuApiClient {
   static Future<MenuApiClient> get instance async {
     if (_instance == null) {
       var auth = menu_api.HttpBearerAuth();
-      var token = await KeycloakService.instance.getToken();
-      auth.accessToken = token.accessToken;
+      auth.accessToken = await KeycloakService.instance.getToken();
 
       return MenuApiClient(menu_api.ApiClient(
           basePath: Environment.MENU_API_BASE_URL, authentication: auth));
@@ -36,8 +35,7 @@ class InventoryApiClient {
   static Future<InventoryApiClient> get instance async {
     if (_instance == null) {
       var auth = HttpBearerAuth();
-      var token = await KeycloakService.instance.getToken();
-      auth.accessToken = token.accessToken;
+      auth.accessToken = await KeycloakService.instance.getToken();
 
       return InventoryApiClient((ApiClient(
           basePath: Environment.INVENTORY_API_BASE_URL, authentication: auth)));
