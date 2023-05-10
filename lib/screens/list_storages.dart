@@ -21,8 +21,9 @@ class _StorageListPageState extends State<StorageListPage> {
   }
 
   Future<void> _getFoodStorages() async {
-    final items = await FoodStorageApi(InventoryApiClient.instance.apiClient)
-        .listAllFoodStorages();
+    final items =
+        await FoodStorageApi((await InventoryApiClient.instance).apiClient)
+            .listAllFoodStorages();
     setState(() {
       _foodStorages = items ?? [];
     });

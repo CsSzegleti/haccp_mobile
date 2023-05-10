@@ -21,11 +21,17 @@ class KeycloakService {
     return await authenticate(_credentials);
   }
 
-  Token getToken() {
+  Future<Token> getToken() async {
     if (_authenticated && !_token.isExpired) {
       return _token;
+    } else if (_authenticated && _token.isExpired) {
+      if (await refreshToken() == 200) {
+        return _token;
+      } else {
+        throw Exception('Failed to refresh token');
+      }
     } else {
-      throw Exception('Token is expired');
+      throw Exception('Not logged in');
     }
   }
 
