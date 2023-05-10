@@ -49,7 +49,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
 
   Future<void> _loadAllergens() async {
     final items =
-        await AllergenResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
+        await AllergenResourceApi((await MenuApiClient.instance).apiClient)
             .listAllergens();
     setState(() {
       _allergens = items ?? [];
@@ -58,7 +58,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
 
   Future<void> _loadCategories() async {
     final items =
-        await CategoryResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
+        await CategoryResourceApi((await MenuApiClient.instance).apiClient)
             .listCategories();
     setState(() {
       _categories = items ?? [];
@@ -82,6 +82,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
             const SizedBox(height: 16),
             TextFormField(
               initialValue: _menuItem.name,
+              maxLines: null,
               decoration: const InputDecoration(
                 labelText: "Name",
                 border: OutlineInputBorder(),
@@ -99,6 +100,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
             const SizedBox(height: 16),
             TextFormField(
               initialValue: _menuItem.description,
+              maxLines: null,
               decoration: const InputDecoration(
                 labelText: 'Description',
                 border: OutlineInputBorder(),
@@ -139,8 +141,22 @@ class _MenuItemFormState extends State<MenuItemForm> {
                 border: OutlineInputBorder(),
               ),
               options: _allergens,
+              isDense: false,
               menuItembuilder: (option) => Text(option.longName),
-              selectedValues: _selectedAllergens,
+              childBuilder: (selectedValues) {
+                return Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: Wrap(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      spacing: 8,
+                      children: selectedValues
+                          .map((selectedValue) => Chip(
+                                label: Text(selectedValue.shortName),
+                              ))
+                          .toList(growable: true),
+                    ));
+              },
+              selectedValues: _selectedAllergens.toList(growable: true),
               onChanged: (List<Allergen> allergens) {
                 setState(() {
                   _selectedAllergens = allergens;
@@ -277,7 +293,6 @@ class _MenuItemFormState extends State<MenuItemForm> {
 
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           backgroundColor: Colors.green, content: Text("Success")));
-      return;
 
       Navigator.pop(context);
     }

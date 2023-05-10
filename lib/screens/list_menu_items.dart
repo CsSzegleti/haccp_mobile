@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:haccp_mobile/screens/menu_item_form.dart';
+import 'package:haccp_mobile/service/api_client.dart';
 import 'package:haccp_mobile/service/menu_api_client/lib/api.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key}) : super(key: key);
-
-  final _baseURL = "http://devtenant1:8081";
 
   @override
   State<MenuPage> createState() => _MenuPageState();
@@ -22,7 +21,7 @@ class _MenuPageState extends State<MenuPage> {
 
   Future<void> _loadCategories() async {
     final items =
-        await CategoryResourceApi(ApiClient(basePath: "http://devtenant1:8081"))
+        await CategoryResourceApi((await MenuApiClient.instance).apiClient)
             .listCategories();
     setState(() {
       _categories = items ?? [];
@@ -68,6 +67,17 @@ class _MenuPageState extends State<MenuPage> {
                               subtitle: Text(_categories[index]
                                   .items[itemIdx]
                                   .description),
+                              onTap: () {
+                                Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MenuItemForm(
+                                                menuItem: _categories[index]
+                                                    .items[itemIdx])))
+                                    .then((_) async {
+                                  await _loadCategories();
+                                });
+                              },
                             ));
                       }),
                 ],
