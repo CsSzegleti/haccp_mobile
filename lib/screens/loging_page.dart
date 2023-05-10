@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:haccp_mobile/screens/list_storages.dart';
 import 'package:haccp_mobile/service/keycloak_service/keycloak_service.dart';
+import 'package:haccp_mobile/util/env.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = "/login";
@@ -14,6 +15,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   KeycloakService keycloakService = KeycloakService.instance;
   final _formKey = GlobalKey<FormState>();
+
+  String? _currentRealm;
 
   String? _userName;
   String? _password;
@@ -29,6 +32,30 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    const SizedBox(height: 16),
+                    DropdownButtonFormField<String>(
+                        decoration: const InputDecoration(
+                          labelText: 'realm',
+                          border: OutlineInputBorder(),
+                        ),
+                        value: _currentRealm,
+                        items: Environment.KEYCLOAK_REALMS.map((item) {
+                          return DropdownMenuItem<String>(
+                            value: item,
+                            child: Text(item),
+                          );
+                        }).toList(),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select realm';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            _currentRealm = value;
+                          });
+                        }),
                     const SizedBox(height: 16),
                     TextFormField(
                       initialValue: _userName,
@@ -71,6 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                           _formKey.currentState!.save();
 
                           try {
+                            Environment.KEYCLOAK_REALM = _currentRealm;
                             await keycloakService.login(_userName!, _password!);
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
