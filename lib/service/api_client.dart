@@ -19,6 +19,9 @@ class MenuApiClient {
           basePath: Environment.MENU_API_BASE_URL, authentication: auth));
     }
 
+    (_instance?._apiClient.authentication as HttpBearerAuth).accessToken =
+        await KeycloakService.instance.getToken();
+
     return _instance!;
   }
 
@@ -40,6 +43,9 @@ class InventoryApiClient {
       return InventoryApiClient((ApiClient(
           basePath: Environment.INVENTORY_API_BASE_URL, authentication: auth)));
     }
+
+    (_instance?._apiClient.authentication as HttpBearerAuth).accessToken =
+        await KeycloakService.instance.getToken();
 
     return _instance!;
   }
