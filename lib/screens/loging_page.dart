@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:haccp_mobile/screens/list_menu_items.dart';
 import 'package:haccp_mobile/screens/list_storages.dart';
-import 'package:haccp_mobile/service/keycloak_service/keycloak_service.dart';
+import 'package:haccp_mobile/services/keycloak_service/keycloak_service.dart';
 import 'package:haccp_mobile/util/env.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = "/login";
@@ -28,15 +30,15 @@ class _LoginPageState extends State<LoginPage> {
         body: Form(
             key: _formKey,
             child: Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 16),
                     DropdownButtonFormField<String>(
-                        decoration: const InputDecoration(
-                          labelText: 'realm',
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.login_realm,
+                          border: const OutlineInputBorder(),
                         ),
                         value: _currentRealm,
                         items: Environment.KEYCLOAK_REALMS.map((item) {
@@ -110,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => StorageListPage()));
+                                  builder: (context) => MenuPage()));
                         }
                       },
                       child: const Text("Login"),

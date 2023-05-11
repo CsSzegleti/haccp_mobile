@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:haccp_mobile/screens/storage_details.dart';
-import 'package:haccp_mobile/service/api_client.dart';
-import 'package:haccp_mobile/service/inventory_api_client/lib/api.dart';
-import 'package:haccp_mobile/service/keycloak_service/keycloak_service.dart';
+import 'package:haccp_mobile/services/api_client.dart';
+import 'package:haccp_mobile/services/inventory_api_client/lib/api.dart';
+import 'package:haccp_mobile/services/keycloak_service/keycloak_service.dart';
 
 class StorageListPage extends StatefulWidget {
   const StorageListPage({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
-import 'package:haccp_mobile/service/inventory_api_client/lib/api.dart';
-import 'package:haccp_mobile/service/keycloak_service/keycloak_service.dart';
-import 'package:haccp_mobile/service/menu_api_client/lib/api.dart' as menu_api;
+import 'package:haccp_mobile/services/inventory_api_client/lib/api.dart';
+import 'package:haccp_mobile/services/keycloak_service/keycloak_service.dart';
+import 'package:haccp_mobile/services/menu_api_client/lib/api.dart' as menu_api;
 import 'package:haccp_mobile/util/env.dart';
 
 class MenuApiClient {

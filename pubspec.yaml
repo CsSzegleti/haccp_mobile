@@ -31,16 +31,20 @@ dependencies:
   flutter:
     sdk: flutter
   menu_api:
-    path: lib/service/menu_api_client
+    path: lib/services/menu_api_client
   inventory_api:
-    path: lib/service/inventory_api_client
+    path: lib/services/inventory_api_client
   multiselect: ^0.1.0
   provider: ^6.0.0
+  intl: any
+  camera: ^0.10.5
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +67,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true # Add this line
 
   # To add assets to your application, add an assets section, like this:
   # assets:

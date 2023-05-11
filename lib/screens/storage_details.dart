@@ -1,8 +1,8 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:haccp_mobile/service/inventory_api_client/lib/api.dart';
-import 'package:haccp_mobile/service/menu_api_client/lib/api.dart' as menu_api;
+import 'package:haccp_mobile/services/inventory_api_client/lib/api.dart';
+import 'package:haccp_mobile/services/menu_api_client/lib/api.dart' as menu_api;
 import 'package:haccp_mobile/widgets/number_scroller.dart';
 
 class StorageDetail extends StatefulWidget {

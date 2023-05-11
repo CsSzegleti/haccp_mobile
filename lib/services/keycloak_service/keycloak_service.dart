@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:haccp_mobile/service/keycloak_service/keycloak_credential.dart';
+import 'package:haccp_mobile/services/keycloak_service/keycloak_credential.dart';
 import 'package:haccp_mobile/util/env.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:haccp_mobile/service/keycloak_service/token.dart';
+import 'package:haccp_mobile/services/keycloak_service/token.dart';
 
 class KeycloakService {
   static KeycloakService? _instance;

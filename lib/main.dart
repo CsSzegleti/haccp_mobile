@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:haccp_mobile/screens/loging_page.dart';
 import 'package:haccp_mobile/screens/menu_item_form.dart';
 import 'package:haccp_mobile/screens/cateory_list_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'HACCP mobile',
       initialRoute: "/",
       routes: {
         // "/": (context) => const MyHomePage(title: 'HACCP Home Page'),
@@ -22,6 +24,16 @@ class MyApp extends StatelessWidget {
         // "/menuItems": (context) => const MenuItemsPage(),
         "/addMenuItem": (context) => const MenuItemForm(),
       },
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('hu'),
+      ],
       theme: ThemeData(
         // This is the theme of your application.
         //

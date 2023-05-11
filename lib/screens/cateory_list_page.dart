@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:menu_api/api.dart';
+import 'package:haccp_mobile/services/menu_api_client/lib/api.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({Key? key}) : super(key: key);

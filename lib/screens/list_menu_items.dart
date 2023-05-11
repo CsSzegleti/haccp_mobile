@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:haccp_mobile/screens/menu_item_form.dart';
-import 'package:haccp_mobile/service/api_client.dart';
-import 'package:haccp_mobile/service/menu_api_client/lib/api.dart';
+import 'package:haccp_mobile/services/api_client.dart';
+import 'package:haccp_mobile/services/menu_api_client/lib/api.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Menu"),
+        title: Text(AppLocalizations.of(context)!.menu_title),
       ),
       body: Column(
         children: [
@@ -69,12 +70,13 @@ class _MenuPageState extends State<MenuPage> {
                                   .description),
                               onTap: () {
                                 Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => MenuItemForm(
-                                                menuItem: _categories[index]
-                                                    .items[itemIdx])))
-                                    .then((_) async {
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MenuItemForm(
+                                              menuItem: _categories[index]
+                                                  .items[itemIdx],
+                                              category: _categories[index],
+                                            ))).then((_) async {
                                   await _loadCategories();
                                 });
                               },

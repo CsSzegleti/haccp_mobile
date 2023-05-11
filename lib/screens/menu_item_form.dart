@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:haccp_mobile/service/api_client.dart';
-import 'package:haccp_mobile/service/menu_api_client/lib/api.dart';
+import 'package:haccp_mobile/services/api_client.dart';
+import 'package:haccp_mobile/services/menu_api_client/lib/api.dart';
 import 'package:multiselect/multiselect.dart';
 
 class MenuItemForm extends StatefulWidget {
   final MenuItem? menuItem;
+  final Category? category;
 
-  const MenuItemForm({Key? key, this.menuItem}) : super(key: key);
+  const MenuItemForm({Key? key, this.menuItem, this.category})
+      : super(key: key);
 
   @override
   State<MenuItemForm> createState() => _MenuItemFormState();
@@ -31,7 +33,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
 
     if (widget.menuItem != null) {
       _menuItem = widget.menuItem!;
-      _selectedCategory = _menuItem.category;
+      _selectedCategory = widget.category;
       _selectedAllergens = _menuItem.allergens;
     } else {
       _menuItem = MenuItem(

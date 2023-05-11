@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:haccp_mobile/service/inventory_api_client/lib/api.dart';
+import 'package:haccp_mobile/services/inventory_api_client/lib/api.dart';
 
 class StorageForm extends StatefulWidget {
   final FoodStorage? foodStorage;
