@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haccp_mobile/services/api_client.dart';
 import 'package:haccp_mobile/services/inventory_api_client/lib/api.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 class CleaningListPage extends StatefulWidget {
   final String storageId;
@@ -33,10 +34,14 @@ class _CleaningListPageState extends State<CleaningListPage> {
           itemCount: _cleanings.length,
           itemBuilder: (context, index) {
             return Card(
-              margin: const EdgeInsets.all(16),
+              margin: const EdgeInsets.only(left: 16, right: 16, top: 8),
               child: ListTile(
                 title: Text(_cleanings[index].cleanedBy!),
-                subtitle: Text(_cleanings[index].createdDate.toString()),
+                subtitle: Text(
+                  DateFormat.yMMMEd(Intl.getCurrentLocale())
+                      .add_jm()
+                      .format(_cleanings[index].createdDate!),
+                ),
               ),
             );
           },

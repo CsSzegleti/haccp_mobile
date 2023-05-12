@@ -70,13 +70,15 @@ class _MenuPageState extends State<MenuPage> {
                                   .description),
                               onTap: () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MenuItemForm(
-                                              menuItem: _categories[index]
-                                                  .items[itemIdx],
-                                              category: _categories[index],
-                                            ))).then((_) async {
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MenuItemForm(
+                                      menuItem:
+                                          _categories[index].items[itemIdx],
+                                      category: _categories[index],
+                                    ),
+                                  ),
+                                ).then((_) async {
                                   await _loadCategories();
                                 });
                               },

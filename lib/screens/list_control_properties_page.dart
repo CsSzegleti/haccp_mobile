@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haccp_mobile/screens/control_property_form.dart';
 import 'package:haccp_mobile/services/api_client.dart';
 import 'package:haccp_mobile/services/inventory_api_client/lib/api.dart';
+import 'package:intl/intl.dart';
 
 class ControlPropertyListPage extends StatefulWidget {
   final ControlPoint controlPoint;
@@ -37,11 +38,14 @@ class _ControlPropertyListPageState extends State<ControlPropertyListPage> {
           itemCount: _controlProperties.length,
           itemBuilder: (context, index) {
             return Card(
-              margin: const EdgeInsets.all(16),
+              margin: const EdgeInsets.only(left: 16, right: 16, top: 8),
               child: ListTile(
                 title: Text(_controlProperties[index].value!.toString()),
-                subtitle:
-                    Text(_controlProperties[index].createdDate.toString()),
+                subtitle: Text(
+                  DateFormat.yMMMEd(Intl.getCurrentLocale())
+                      .add_jm()
+                      .format(_controlProperties[index].createdDate!),
+                ),
               ),
             );
           },
@@ -58,7 +62,7 @@ class _ControlPropertyListPageState extends State<ControlPropertyListPage> {
             await _getControlProperties();
           });
         },
-        tooltip: 'Add new menu item',
+        tooltip: 'Add control property',
         child: const Icon(Icons.add),
       ),
     );

@@ -5,6 +5,8 @@ import 'package:haccp_mobile/screens/list_storages.dart';
 import 'package:haccp_mobile/screens/login_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:haccp_mobile/screens/menu_item_form.dart';
+import 'package:haccp_mobile/screens/storage_form.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,9 +22,10 @@ class MyApp extends StatelessWidget {
       title: 'HACCP mobile',
       initialRoute: "/",
       routes: {
-        // "/": (context) => const MyHomePage(title: 'HACCP Home Page'),
+        StorageForm.routeName: (context) => const StorageForm(),
         "/storages": (context) => const StorageListPage(),
         "/menuItems": (context) => const MenuPage(),
+        "/addMenuItem": (context) => const MenuItemForm(),
         "/login": (context) => const LoginPage(),
       },
       localizationsDelegates: const [

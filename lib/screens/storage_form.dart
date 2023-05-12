@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:haccp_mobile/services/api_client.dart';
 import 'package:haccp_mobile/services/inventory_api_client/lib/api.dart';
 
 class StorageForm extends StatefulWidget {
+  static const String routeName = "/storage_form";
+
   final FoodStorage? foodStorage;
 
   const StorageForm({Key? key, this.foodStorage}) : super(key: key);
@@ -91,10 +94,13 @@ class _StorageFormState extends State<StorageForm> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       if (_foodStorage.id != null) {
-        await FoodStorageApi(ApiClient(basePath: "http://devtenant1:8080"))
+        await FoodStorageApi(
+                (await InventoryApiClient.creteInstance(context)).apiClient)
             .updateFoodStorage(_foodStorage.id!, foodStorage: _foodStorage);
       } else {
-        await FoodStorageApi(ApiClient(basePath: "http://devtenant1:8080"))
+        _foodStorage.createdDate = DateTime.now();
+        await FoodStorageApi(
+                (await InventoryApiClient.creteInstance(context)).apiClient)
             .addNewFoodStorage(foodStorage: _foodStorage);
       }
 

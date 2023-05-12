@@ -64,7 +64,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
     setState(() {
       _categories = items ?? [];
       _selectedCategory = _categories.firstWhere(
-          (element) => element.id == widget.category!.id,
+          (element) => element.id == widget.category?.id,
           orElse: () => _categories.first);
     });
   }
@@ -82,7 +82,7 @@ class _MenuItemFormState extends State<MenuItemForm> {
           padding: const EdgeInsets.all(16.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            const Text("Base data"),
+            Text("Base data", style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: 16),
             TextFormField(
               initialValue: _menuItem.name,
@@ -146,19 +146,25 @@ class _MenuItemFormState extends State<MenuItemForm> {
               ),
               options: _allergens,
               isDense: false,
-              menuItembuilder: (option) => Text(option.longName),
+              menuItembuilder: (option) => Row(children: [
+                _selectedAllergens.contains(option)
+                    ? const SizedBox(width: 24, child: Icon(Icons.check))
+                    : const SizedBox(width: 24),
+                const SizedBox(width: 16),
+                Text(option.longName),
+              ]),
               childBuilder: (selectedValues) {
                 return Padding(
-                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                    child: Wrap(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      spacing: 8,
-                      children: selectedValues
-                          .map((selectedValue) => Chip(
-                                label: Text(selectedValue.shortName),
-                              ))
-                          .toList(growable: true),
-                    ));
+                  padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: Wrap(
+                    spacing: 8,
+                    children: selectedValues
+                        .map((selectedValue) => Chip(
+                              label: Text(selectedValue.shortName),
+                            ))
+                        .toList(growable: true),
+                  ),
+                );
               },
               selectedValues: _selectedAllergens.toList(growable: true),
               onChanged: (List<Allergen> allergens) {
@@ -205,7 +211,10 @@ class _MenuItemFormState extends State<MenuItemForm> {
                   });
                 }),
             const SizedBox(height: 16),
-            const Text("Storing condition"),
+            Text(
+              "Storing condition",
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
             const SizedBox(height: 16),
             InputDecorator(
               decoration: const InputDecoration(
@@ -266,15 +275,49 @@ class _MenuItemFormState extends State<MenuItemForm> {
                 },
               ),
             ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _submit,
-              child: Text('Save'),
-            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: _submit,
+                    child: Text('Save'),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.red),
+                    ),
+                    onPressed: _menuItem.id != null ? _delete : null,
+                    child: Text('Delete'),
+                  ),
+                )
+              ],
+            )
           ]),
         ),
       )),
     );
+  }
+
+  _delete() async {
+    try {
+      await MenuItemResourceApi(
+              (await MenuApiClient.creteInstance(context)).apiClient)
+          .deleteMenuItemById(_menuItem.id!);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text("There has been an error")));
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        backgroundColor: Colors.green, content: Text("Success")));
+
+    Navigator.pop(context);
   }
 
   void _submit() async {
