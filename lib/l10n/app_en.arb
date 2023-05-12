@@ -1,4 +1,5 @@
 {
+    "haccpApp": "HACCP mobile application",
     "menu_title": "Menu items",
     "login_realm": "Tenant",
     "cleanings": "Cleanings",
@@ -7,5 +8,8 @@
     "value_required": "The value is required.",
     "save": "Save",
     "controlPoints": "Control points",
-    "addControlPoint": "Add control point"
+    "addControlPoint": "Add control point",
+    "storages": "Storages",
+    "homePageTitle": "Home page",
+    "login": "Login"
 }

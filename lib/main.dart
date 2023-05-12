@@ -1,13 +1,10 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:haccp_mobile/screens/file_uploader_page.dart';
+import 'package:haccp_mobile/screens/home_page.dart';
+import 'package:haccp_mobile/screens/list_menu_items.dart';
 import 'package:haccp_mobile/screens/list_storages.dart';
 import 'package:haccp_mobile/screens/login_page.dart';
-import 'package:haccp_mobile/screens/menu_item_form.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:haccp_mobile/screens/take_picture_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,8 +21,8 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         // "/": (context) => const MyHomePage(title: 'HACCP Home Page'),
-        // "/menuItems": (context) => const MenuItemsPage(),
-        "/addMenuItem": (context) => const MenuItemForm(),
+        "/storages": (context) => const StorageListPage(),
+        "/menuItems": (context) => const MenuPage(),
         "/login": (context) => const LoginPage(),
       },
       localizationsDelegates: const [
@@ -50,7 +47,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'HACCP Home Page'),
+      home: HomePage(),
     );
   }
 }
