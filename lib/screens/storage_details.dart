@@ -58,6 +58,24 @@ class _StorageDetailState extends State<StorageDetail> {
               itemCount: _foodStorage.controlPoints.length,
               itemBuilder: (context, index) {
                 return Card(
+                  color: (_foodStorage
+                              .controlPoints[index].properties.isNotEmpty &&
+                          _foodStorage
+                                  .controlPoints[index].properties.last.value !=
+                              null)
+                      ? _foodStorage.controlPoints[index].limitType ==
+                              LimitType.MAX
+                          ? (_foodStorage.controlPoints[index].properties.last
+                                      .value! >
+                                  _foodStorage.controlPoints[index].threshold!
+                              ? Colors.red
+                              : Colors.green)
+                          : (_foodStorage.controlPoints[index].properties.last
+                                      .value! <
+                                  _foodStorage.controlPoints[index].threshold!
+                              ? Colors.green
+                              : Colors.red)
+                      : null,
                   margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
                   child: ListTile(
                     isThreeLine: true,
