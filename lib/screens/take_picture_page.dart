@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class TakePictureScreen extends StatefulWidget {
   final CameraDescription camera;
@@ -16,6 +19,10 @@ class TakePictureScreen extends StatefulWidget {
 class _TakePictureScreenState extends State<TakePictureScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+
+  late File _imageFile;
+
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {

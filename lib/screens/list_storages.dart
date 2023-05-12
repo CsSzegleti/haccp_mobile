@@ -21,9 +21,9 @@ class _StorageListPageState extends State<StorageListPage> {
   }
 
   Future<void> _getFoodStorages() async {
-    final items =
-        await FoodStorageApi((await InventoryApiClient.instance).apiClient)
-            .listAllFoodStorages();
+    final items = await FoodStorageApi(
+            (await InventoryApiClient.creteInstance(context)).apiClient)
+        .listAllFoodStorages();
     setState(() {
       _foodStorages = items ?? [];
     });
@@ -35,26 +35,28 @@ class _StorageListPageState extends State<StorageListPage> {
         appBar: AppBar(
           title: const Text("Food Storages"),
         ),
-        body: ListView.builder(
-          itemCount: _foodStorages.length,
-          itemBuilder: (context, index) {
-            return Card(
-                margin: const EdgeInsets.all(16),
-                child: ListTile(
-                  title: Text(_foodStorages[index].name!),
-                  subtitle: Text(_foodStorages[index].description!),
-                  onTap: () {
-                    Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => StorageDetail(
-                                    foodStorage: _foodStorages[index])))
-                        .then((_) async {
-                      await _getFoodStorages();
-                    });
-                  },
-                ));
-          },
-        ));
+        body: RefreshIndicator(
+            onRefresh: _getFoodStorages,
+            child: ListView.builder(
+              itemCount: _foodStorages.length,
+              itemBuilder: (context, index) {
+                return Card(
+                    margin: const EdgeInsets.all(16),
+                    child: ListTile(
+                      title: Text(_foodStorages[index].name!),
+                      subtitle: Text(_foodStorages[index].description!),
+                      onTap: () {
+                        Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => StorageDetail(
+                                        foodStorage: _foodStorages[index])))
+                            .then((_) async {
+                          await _getFoodStorages();
+                        });
+                      },
+                    ));
+              },
+            )));
   }
 }

@@ -1,9 +1,15 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:haccp_mobile/screens/control_point_form.dart';
+import 'package:haccp_mobile/screens/list_cleanings_page.dart';
+import 'package:haccp_mobile/screens/list_control_properties_page.dart';
+import 'package:haccp_mobile/services/api_client.dart';
 import 'package:haccp_mobile/services/inventory_api_client/lib/api.dart';
 import 'package:haccp_mobile/services/menu_api_client/lib/api.dart' as menu_api;
 import 'package:haccp_mobile/widgets/number_scroller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 class StorageDetail extends StatefulWidget {
   final FoodStorage foodStorage;
@@ -44,7 +50,7 @@ class _StorageDetailState extends State<StorageDetail> {
             child: Column(
           children: [
             const SizedBox(height: 16),
-            Text("Control Points",
+            Text(AppLocalizations.of(context)!.controlPoints,
                 style: Theme.of(context).textTheme.headlineSmall),
             ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
@@ -52,37 +58,88 @@ class _StorageDetailState extends State<StorageDetail> {
               itemCount: _foodStorage.controlPoints.length,
               itemBuilder: (context, index) {
                 return Card(
-                    margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
-                    child: ListTile(
-                        isThreeLine: true,
-                        title: Text(_foodStorage.controlPoints[index].name),
-                        subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(_foodStorage.controlPoints[index].properties
-                                          .isEmpty ||
-                                      _foodStorage.controlPoints[index]
-                                              .properties.last.value ==
-                                          null
-                                  ? "No value"
-                                  : _foodStorage.controlPoints[index].properties
-                                      .last.value
-                                      .toString()),
-                              Text(
-                                  "${_foodStorage.controlPoints[index].limitType} - ${_foodStorage.controlPoints[index].threshold}")
-                            ])));
+                  margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                  child: ListTile(
+                    isThreeLine: true,
+                    title: Text(_foodStorage.controlPoints[index].name),
+                    subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(_foodStorage.controlPoints[index].properties
+                                      .isEmpty ||
+                                  _foodStorage.controlPoints[index].properties
+                                          .last.value ==
+                                      null
+                              ? "No value"
+                              : _foodStorage
+                                  .controlPoints[index].properties.last.value
+                                  .toString()),
+                          Text(
+                              "${_foodStorage.controlPoints[index].limitType} - ${_foodStorage.controlPoints[index].threshold}")
+                        ]),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ControlPropertyListPage(
+                                    controlPoint:
+                                        _foodStorage.controlPoints[index],
+                                    storageId: _foodStorage.id!,
+                                  ))).then((_) async {
+                        await _getControlPoints();
+                      });
+                    },
+                  ),
+                );
               },
             ),
             const SizedBox(height: 16),
-            Text("Cleanings", style: Theme.of(context).textTheme.headlineSmall),
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ControlPointForm(
+                                      foodStorage: _foodStorage,
+                                    ))).then((_) async {
+                          await _getControlPoints();
+                        });
+                      },
+                      child:
+                          Text(AppLocalizations.of(context)!.addControlPoint),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(AppLocalizations.of(context)!.cleanings,
+                style: Theme.of(context).textTheme.headlineSmall),
             Card(
               margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
               child: ListTile(
-                title: const Text("Cleanings"),
+                title: Text(AppLocalizations.of(context)!.last_cleaning),
                 isThreeLine: true,
                 subtitle: Text(_foodStorage.cleanings.isEmpty
                     ? "No cleanings"
-                    : _foodStorage.cleanings.last.createdDate.toString()),
+                    : DateFormat.yMMMEd(Intl.getCurrentLocale())
+                        .add_jm()
+                        .format(_foodStorage.cleanings.last.createdDate!)),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CleaningListPage(
+                                storageId: _foodStorage.id!,
+                              ))).then((_) async {
+                    await _getCleanings();
+                  });
+                },
               ),
             ),
             const SizedBox(height: 16),
@@ -115,21 +172,23 @@ class _StorageDetailState extends State<StorageDetail> {
             const SizedBox(height: 16),
             Row(children: [
               Expanded(
-                  child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 16, right: 16, bottom: 16),
-                      child: ElevatedButton(
-                        onPressed: _saveMenuItems,
-                        child: Text('Save'),
-                      )))
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                  child: ElevatedButton(
+                    onPressed: _saveMenuItems,
+                    child: Text(AppLocalizations.of(context)!.save),
+                  ),
+                ),
+              )
             ]),
           ],
         ))));
   }
 
-  Future<void> _getMenuItems() async {
+  _getMenuItems() async {
     final items = await menu_api.MenuItemResourceApi(
-            menu_api.ApiClient(basePath: "http://devtenant1:8081"))
+            (await MenuApiClient.creteInstance(context)).apiClient)
         .listMenuItems();
 
     if (items == null || items.isEmpty) {
@@ -156,17 +215,42 @@ class _StorageDetailState extends State<StorageDetail> {
     });
   }
 
-  _saveMenuItems() {
+  _getCleanings() async {
+    final cleanings = await CleaningApi(
+            (await InventoryApiClient.creteInstance(context)).apiClient)
+        .listAllCleaning(_foodStorage.id!);
+    setState(() {
+      _foodStorage.cleanings = cleanings ?? [];
+    });
+  }
+
+  _getControlPoints() async {
+    final controlPoints = await ControlPointApi(
+            (await InventoryApiClient.creteInstance(context)).apiClient)
+        .listAllControlPoints(_foodStorage.id!);
+
+    if (controlPoints == null || controlPoints.isEmpty) {
+      return;
+    }
+
+    setState(() {
+      _foodStorage.controlPoints = controlPoints;
+    });
+  }
+
+  _saveMenuItems() async {
     for (final item in _menuItemsPiecesToModify.entries) {
       final inventoryMoveItem = InventoryItemToMoveDto(
           menuItemId: item.key, quantity: item.value.abs());
       if (item.value > 0) {
-        FoodStorageApi(ApiClient(basePath: "http://devtenant1:8080"))
+        FoodStorageApi(
+                (await InventoryApiClient.creteInstance(context)).apiClient)
             .addMenuItemToFoodStorage(_foodStorage.id!,
                 inventoryItemToMoveDto: inventoryMoveItem);
       } else if (item.value < 0) {
         for (var i = 0; i < item.value.abs(); i++) {
-          FoodStorageApi(ApiClient(basePath: "http://devtenant1:8080"))
+          FoodStorageApi(
+                  (await InventoryApiClient.creteInstance(context)).apiClient)
               .removeMenuItemFromFoodStorage(_foodStorage.id!,
                   inventoryItemToMoveDto: inventoryMoveItem);
         }

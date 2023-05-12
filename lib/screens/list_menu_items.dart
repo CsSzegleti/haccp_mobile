@@ -21,9 +21,9 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   Future<void> _loadCategories() async {
-    final items =
-        await CategoryResourceApi((await MenuApiClient.instance).apiClient)
-            .listCategories();
+    final items = await CategoryResourceApi(
+            (await MenuApiClient.creteInstance(context)).apiClient)
+        .listCategories();
     setState(() {
       _categories = items ?? [];
     });

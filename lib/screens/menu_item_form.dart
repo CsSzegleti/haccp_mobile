@@ -33,7 +33,6 @@ class _MenuItemFormState extends State<MenuItemForm> {
 
     if (widget.menuItem != null) {
       _menuItem = widget.menuItem!;
-      _selectedCategory = widget.category;
       _selectedAllergens = _menuItem.allergens;
     } else {
       _menuItem = MenuItem(
@@ -50,20 +49,23 @@ class _MenuItemFormState extends State<MenuItemForm> {
   }
 
   Future<void> _loadAllergens() async {
-    final items =
-        await AllergenResourceApi((await MenuApiClient.instance).apiClient)
-            .listAllergens();
+    final items = await AllergenResourceApi(
+            (await MenuApiClient.creteInstance(context)).apiClient)
+        .listAllergens();
     setState(() {
       _allergens = items ?? [];
     });
   }
 
   Future<void> _loadCategories() async {
-    final items =
-        await CategoryResourceApi((await MenuApiClient.instance).apiClient)
-            .listCategories();
+    final items = await CategoryResourceApi(
+            (await MenuApiClient.creteInstance(context)).apiClient)
+        .listCategories();
     setState(() {
       _categories = items ?? [];
+      _selectedCategory = _categories.firstWhere(
+          (element) => element.id == widget.category!.id,
+          orElse: () => _categories.first);
     });
   }
 
@@ -280,10 +282,12 @@ class _MenuItemFormState extends State<MenuItemForm> {
       _formKey.currentState!.save();
       try {
         if (_menuItem.id != null) {
-          await MenuItemResourceApi((await MenuApiClient.instance).apiClient)
+          await MenuItemResourceApi(
+                  (await MenuApiClient.creteInstance(context)).apiClient)
               .updateMenuItem(_menuItem.id!, menuItem: _menuItem);
         } else {
-          await MenuItemResourceApi((await MenuApiClient.instance).apiClient)
+          await MenuItemResourceApi(
+                  (await MenuApiClient.creteInstance(context)).apiClient)
               .addMenuItem(menuItem: _menuItem);
         }
       } catch (e) {

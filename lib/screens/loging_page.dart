@@ -109,10 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                                     content: Text("Login failed")));
                             return;
                           }
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MenuPage()));
+                          Navigator.pop(context);
                         }
                       },
                       child: const Text("Login"),
